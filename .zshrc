@@ -5,7 +5,7 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 export GEM_HOME=/Library/Ruby/Gems/1.8
 export GEM_PATH=/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8
-export EDITOR='mate -w'
+export EDITOR='vim'
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
@@ -108,7 +108,7 @@ function sudo {
 }
 
 function grak {
-  mvim -p $(rak -l $@ | xargs) &
+  mvim -p $(rak -l $@ | xargs) &> /dev/null &
 }
      
 # ALIASES
@@ -145,14 +145,10 @@ alias gvim='mvim -p'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|mate"
 
 bindkey '^K' kill-whole-line
-bindkey -s '^L' "|less\n"		# ctrl-L pipes to less
-bindkey -s '^B' " &\n"			# ctrl-B runs it in the background
-bindkey "\e[1~" beginning-of-line	# Home (console)
-bindkey "\e[H" beginning-of-line	# Home (xterm)
-bindkey "\e[4~" end-of-line		# End (console)
-bindkey "\e[F" end-of-line		# End (xterm)
-bindkey "\e[2~" overwrite-mode		# Ins
-bindkey "\e[3~" delete-char		# Delete
+bindkey "^R" history-incremental-search-backward
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^J" self-insert
 
 git_prompt_info () {
  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -177,4 +173,5 @@ set_prompt () {
 precmd() {
   set_prompt
 }
+
 

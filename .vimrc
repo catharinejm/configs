@@ -93,7 +93,6 @@
   endif
 
 " ENABLE THE TAB BAR
-  set tabline=%!MyTabLine()
   set showtabline=2 " 2=always
 
 " MAKE BACKSPACE WORK IN INSERT MODE
@@ -101,30 +100,36 @@
 
 " REMEMBER LAST POSITION IN FILE
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-
-" MAKE IT EASY TO UPDATE/RELOAD_vimrc 
-  :nmap ,s :source ~/.vimrc<cr>
-  :nmap ,v :tabe ~/.vimrc<cr>
   
 " TAB NAVIGATION
   :nmap } :tabnext<cr>
-  :nmap ,tn :tabnext<cr>
   :nmap { :tabprevious<cr>  
-  :nmap ,tp :tabprevious<cr>  
-  :nmap ,te :tabedit   
   :map <D-]> :tabnext<cr>
   :map <D-[> :tabprevious<cr>
   :imap <D-[> :tabp<cr>i<Right>
   :imap <D-]> :tabn<cr>i<Right>
-  
-" RSPEC
-  :nmap ,sh :! script/spec spec/helpers<cr>
-  :nmap ,sm :! script/spec spec/models<cr>
-  :nmap ,sv :! script/spec spec/views<cr>
-  :nmap ,sc :! script/spec spec/controllers<cr>
-  :nmap ,sf :! script/spec %<cr>
-  :nmap ,c  :! rake cruise<cr>  
 
+  :map <D-1> :tabn 1<cr>
+  :map <D-2> :tabn 2<cr>
+  :map <D-3> :tabn 3<cr>
+  :map <D-4> :tabn 4<cr>
+  :map <D-5> :tabn 5<cr>
+  :map <D-6> :tabn 6<cr>
+  :map <D-7> :tabn 7<cr>
+  :map <D-8> :tabn 8<cr>
+  :map <D-9> :tabn 9<cr>
+  :map <D-0> :tablast<cr>
+  :imap <D-1> <Esc>:tabn 1<cr>i
+  :imap <D-2> <Esc>:tabn 2<cr>i
+  :imap <D-3> <Esc>:tabn 3<cr>i
+  :imap <D-4> <Esc>:tabn 4<cr>i
+  :imap <D-5> <Esc>:tabn 5<cr>i
+  :imap <D-6> <Esc>:tabn 6<cr>i
+  :imap <D-7> <Esc>:tabn 7<cr>i
+  :imap <D-8> <Esc>:tabn 8<cr>i
+  :imap <D-9> <Esc>:tabn 9<cr>i
+  :imap <D-0> <Esc>:tablast<cr>i
+  
   imap %% <%=%><Left><Left>
 
   ""Nice statusbar
