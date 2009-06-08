@@ -131,7 +131,7 @@ alias vim='/opt/local/bin/vim -p'
 alias postgres_stop='pg_ctl -D ~/.pgdata stop'
 alias mysql='/opt/local/bin/mysql5 -u root --socket=/tmp/mysql.sock'
 alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
-alias r='/usr/bin/r'
+alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 
 function mysqlredo {
   mysqladmin drop $@
