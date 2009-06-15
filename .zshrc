@@ -134,10 +134,12 @@ alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 
 function push_configs {
+  pushd
   cd ~/projects/configs
   git add .
-  git ci -m $@
+  git ci 
   git push
+  popd
 }
 
 function mysqlredo {
