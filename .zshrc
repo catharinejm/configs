@@ -142,7 +142,7 @@ function mysqlredo {
 alias ff='open -a FireFox'
 alias safari='open -a Safari'
 alias gvim='mvim -p'
-alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|mate"
+alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward
