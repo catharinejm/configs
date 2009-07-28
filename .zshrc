@@ -108,7 +108,7 @@ function sudo {
 }
 
 function grak {
-  mvim -p $(rak -l $@ | xargs) &> /dev/null &
+  mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
      
 # ALIASES
