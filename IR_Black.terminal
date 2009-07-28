@@ -18,10 +18,10 @@
 	<data>
 	YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25UJHRvcFkkYXJjaGl2ZXJYJG9iamVjdHMS
 	AAGGoNEHCFRyb290gAFfEA9OU0tleWVkQXJjaGl2ZXKjCwwTVSRudWxs0w0ODxARElYk
-	Y2xhc3NcTlNDb2xvclNwYWNlVU5TUkdCgAIQAU8QFzEgMC42NDcwNTg4NCAwLjM3NjQ3
-	MDYA0hQVFhdYJGNsYXNzZXNaJGNsYXNzbmFtZaIXGFdOU0NvbG9yWE5TT2JqZWN0CBEa
-	HykyNzo/QVNXXWRreH6AgpyhqrW4wAAAAAAAAAEBAAAAAAAAABkAAAAAAAAAAAAAAAAA
-	AADJ
+	Y2xhc3NcTlNDb2xvclNwYWNlVU5TUkdCgAIQAU8QGDEgMC43MzM5MzI3OSAwLjMwMzY5
+	OTMxANIUFRYXWCRjbGFzc2VzWiRjbGFzc25hbWWiFxhXTlNDb2xvclhOU09iamVjdAgR
+	Gh8pMjc6P0FTV11ka3h+gIKdoqu2ucEAAAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAA
+	AAAAyg==
 	</data>
 	<key>CursorType</key>
 	<integer>1</integer>
@@ -31,7 +31,7 @@
 	<data>
 	YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25UJHRvcFkkYXJjaGl2ZXJYJG9iamVjdHMS
 	AAGGoNEHCFRyb290gAFfEA9OU0tleWVkQXJjaGl2ZXKkCwwVFlUkbnVsbNQNDg8QERIT
-	FFYkY2xhc3NWTlNTaXplVk5TTmFtZVhOU2ZGbGFnc4ADI0AoAAAAAAAAgAIQEFZNb25h
+	FFYkY2xhc3NWTlNTaXplVk5TTmFtZVhOU2ZGbGFnc4ADI0AsAAAAAAAAgAIQEFZNb25h
 	Y2/SFxgZGlgkY2xhc3Nlc1okY2xhc3NuYW1lohobVk5TRm9udFhOU09iamVjdAgRGh8p
 	Mjc6P0FTWF5nbnV8hYeQkpSboKm0t74AAAAAAAABAQAAAAAAAAAcAAAAAAAAAAAAAAAA
 	AAAAxw==
@@ -52,9 +52,9 @@
 	<key>ShouldLimitScrollback</key>
 	<integer>0</integer>
 	<key>ShowActiveProcessInTitle</key>
-	<false/>
-	<key>ShowCommandKeyInTitle</key>
 	<true/>
+	<key>ShowCommandKeyInTitle</key>
+	<false/>
 	<key>ShowDimensionsInTitle</key>
 	<false/>
 	<key>ShowShellCommandInTitle</key>
@@ -63,6 +63,8 @@
 	<false/>
 	<key>ShowWindowSettingsNameInTitle</key>
 	<false/>
+	<key>StrictVTKeypad</key>
+	<true/>
 	<key>TextBoldColor</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25UJHRvcFkkYXJjaGl2ZXJYJG9iamVjdHMS
@@ -82,7 +84,7 @@
 	<key>UseBoldFonts</key>
 	<true/>
 	<key>UseBrightBold</key>
-	<false/>
+	<true/>
 	<key>VisualBell</key>
 	<false/>
 	<key>blackColour</key>
@@ -272,10 +274,14 @@
 	</data>
 	<key>rowCount</key>
 	<integer>20</integer>
+	<key>scrollOnInput</key>
+	<true/>
 	<key>shellExitAction</key>
 	<integer>1</integer>
 	<key>type</key>
 	<string>Window Settings</string>
+	<key>useOptionAsMetaKey</key>
+	<false/>
 	<key>whiteColour</key>
 	<data>
 	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
