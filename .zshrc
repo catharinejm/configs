@@ -112,6 +112,7 @@ function grak {
 }
      
 # ALIASES
+alias gack='grak'
 alias ocaml="rlwrap ocaml"
 alias ssh='/usr/bin/ssh'
 alias ls='ls -G'
