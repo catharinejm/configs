@@ -1,7 +1,5 @@
-
 " ENABLE THE TAB BAR
   set showtabline=2 " 2=always
-
   
 " TAB NAVIGATION
   nmap } :tabnext<cr>

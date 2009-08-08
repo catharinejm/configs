@@ -1,5 +1,3 @@
-
-  
 " Use the cool tab complete menu
   set wildmenu 
   set wildmode=list:longest,full
