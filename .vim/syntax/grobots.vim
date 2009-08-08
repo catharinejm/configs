@@ -35,5 +35,4 @@ highlight link grobotsNumber Number
 highlight link grobotsFloat Float
 highlight link grobotsLogic Statement
 
-
 let b:current_syntax = "grobots"
