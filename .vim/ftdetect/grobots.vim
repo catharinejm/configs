@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.gr set filetype=grobots
+../../../grobots-vim/ftdetect/grobots.vim
