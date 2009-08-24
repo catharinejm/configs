@@ -1,3 +1,10 @@
+" These two enable syntax highlighting
+  set nocompatible
+  syntax on
+
+" Enable highlighting of clojure builtins
+  let g:clj_highlight_builtins = 1
+
 set mouse=a
 scriptencoding utf-8
 set term=xterm
@@ -15,11 +22,6 @@ set softtabstop=2
 set shiftwidth=2
 set autoindent
 set smartindent
-
-set incsearch
-
-set cursorline
-set cursorcolumn
   
 ""Set to auto read when a file is changed from the outside
   set autoread
