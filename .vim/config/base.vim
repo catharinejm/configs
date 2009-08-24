@@ -1,51 +1,32 @@
-" have the mouse enabled all the time:
-  set mouse=a
+set mouse=a
+scriptencoding utf-8
+set term=xterm
+set directory=/tmp/
+set history=100
+set showcmd
+set showmatch
+set completeopt=menu,preview
+set backspace=indent,eol,start
+set nowrap
 
-  scriptencoding utf-8
+set expandtab
+set tabstop=2
+set softtabstop=2 
+set shiftwidth=2
+set autoindent
+set smartindent
 
-" MAKE ARROW KEYS WORK IN CONSOLE VI
-  set term=xterm
-  
-" Set temporary directory (don't litter local dir with swp/tmp files)
-  set directory=/tmp/
-  
-" have one hundred lines of command-line (etc) history:
-  set history=100
+set incsearch
 
-" Show us the command we're typing
-  set showcmd
-
-" Highlight matching parens
-  set showmatch
-
-  set completeopt=menu,preview
-
-" MAKE BACKSPACE WORK IN INSERT MODE
-  set backspace=indent,eol,start
-
-" don't make it look like there are line breaks where there aren't:
-  set nowrap
-
-" use indents of 2 spaces, and have them copied down lines:
-  set expandtab
-  set tabstop=2
-  set softtabstop=2 
-  set shiftwidth=2
-
-  set autoindent
-  set smartindent
+set cursorline
+set cursorcolumn
   
 ""Set to auto read when a file is changed from the outside
   set autoread
-
-" * Search & Replace
-" show the `best match so far' as search strings are typed:
-  set incsearch
  
 " assume the /g flag on :s substitutions to replace all matches in a line:
   set gdefault
 
-" enable line numbers
   set number
 
 " If possible, try to use a narrow line number column.
