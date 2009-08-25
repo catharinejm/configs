@@ -4,6 +4,10 @@
 
 " Enable highlighting of clojure builtins
   let g:clj_highlight_builtins = 1
+" Enable highlighting of ruby operators
+  let g:ruby_operators = 1
+
+set scrolloff=6
 
 set mouse=a
 scriptencoding utf-8
