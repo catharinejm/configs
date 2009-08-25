@@ -4,7 +4,7 @@ colors twilight2
 
 set incsearch
 
-hi IncSearch guifg=#66418C guibg=#141321 gui=underline
+hi IncSearch guifg=#66418C guibg=#141321
 hi Search guifg=#66418C guibg=#141321
 
 hi CursorColumn guibg=#202030
