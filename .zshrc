@@ -180,7 +180,19 @@ set_prompt () {
   export RPROMPT="$(project_name_color)$(git_prompt_info)"
 }
 
+set_term_title() {
+  title=`ruby -e "
+    path = \"$PWD\"
+    until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
+      path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
+    end
+    puts path
+  "`
+  echo -n "\e];$title\a"
+}
+
 precmd() {
+  set_term_title
   set_prompt
 }
 
