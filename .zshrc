@@ -107,12 +107,11 @@ function sudo {
 	fi
 }
 
-function grak {
+function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
      
 # ALIASES
-alias gack='grak'
 alias ocaml="rlwrap ocaml"
 alias ssh='/usr/bin/ssh'
 alias ls='ls -G'
@@ -197,3 +196,10 @@ precmd() {
 }
 
 
+
+# -- start rip config -- #
+RIPDIR=/Users/jon/.rip
+RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
+PATH="$PATH:$RIPDIR/active/bin"
+export RIPDIR RUBYLIB PATH
+# -- end rip config -- #
