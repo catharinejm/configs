@@ -111,6 +111,10 @@ function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
      
+function reload! {
+  touch tmp/restart.txt
+}
+
 # ALIASES
 alias ocaml="rlwrap ocaml"
 alias ssh='/usr/bin/ssh'
