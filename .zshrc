@@ -1,4 +1,5 @@
 # START: EXPORTS
+export ARCHFLAGS='-arch i386'
 export PATH=/Library/Ruby/bin:/opt/local/bin:/Library/PostgreSQL8/bin:/opt/local/sbin:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/:$PATH
 export PATH=/opt/local/lib/postgresql83/bin:$PATH
 export GREP_OPTIONS='--color=auto' 
@@ -112,6 +113,7 @@ function vack {
 }
      
 function reload! {
+  echo Restarting passenger...
   touch tmp/restart.txt
 }
 
@@ -199,7 +201,21 @@ precmd() {
   set_prompt
 }
 
+function native_gems {
+  ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
+             f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
+           end.uniq)'
+}
 
+function rebuild_gems {
+  if [[ $1 = '--all' ]]; then
+    echo "Rebuilding all gems..."
+    gem list | awk '{print $1}' | xargs sudo gem install
+  else
+    echo "Rebuilding gems with native extensions..."
+    native_gems | awk '{print $1}' | xargs sudo gem install
+  fi
+}
 
 # -- start rip config -- #
 RIPDIR=/Users/jon/.rip
