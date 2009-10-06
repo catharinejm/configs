@@ -25,9 +25,6 @@ set tabstop=2
 set softtabstop=2 
 set shiftwidth=2
 set autoindent
-set smartindent
-
-inoremap # X#
   
 ""Set to auto read when a file is changed from the outside
   set autoread
