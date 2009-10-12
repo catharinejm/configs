@@ -5,7 +5,6 @@ export PATH=/opt/local/lib/postgresql83/bin:$PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=/Library/Ruby/Gems/1.8
-export GEM_PATH=/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8
 export EDITOR='vim'
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
