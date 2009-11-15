@@ -9,6 +9,10 @@
 
 set scrolloff=6
 
+" Disable F1 because it's a pain in my ass
+map <F1> <Esc>
+imap <F1> <Esc>a
+
 set mouse=a
 scriptencoding utf-8
 set term=xterm
