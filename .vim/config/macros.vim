@@ -4,3 +4,6 @@
 
 " Delete all (up to 999) buffers
   nmap \bd :1,999bd
+
+" Run spec under cursor (requires script/spec)
+  nmap \sp :call RunCurrentSpec()<cr>
