@@ -3,4 +3,4 @@
   nmap <D-i> <Esc>
 
 " Delete all (up to 999) buffers
-  nmap :bda :1,999bd
+  nmap \bd :1,999bd
