@@ -1,5 +1,5 @@
 # START: EXPORTS
-export ARCHFLAGS='-arch i386'
+export ARCHFLAGS='-arch x86_64'
 export PATH=/Library/Ruby/bin:/opt/local/bin:/Library/PostgreSQL8/bin:/opt/local/sbin:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/:$PATH
 export PATH=/opt/local/lib/postgresql83/bin:$PATH
 export PATH=$PATH:/usr/local/mongodb/bin
@@ -171,7 +171,7 @@ git_prompt_info () {
 }
 
 project_name () {
-  name=$(pwd | awk -F'projects/' '{print $2}' | awk -F/ '{print $1}')
+  name=$(pwd | awk -F/ '{print $NF}')
   echo $name
 }
 
