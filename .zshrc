@@ -166,8 +166,8 @@ bindkey "^E" end-of-line
 bindkey "^J" self-insert
 
 git_prompt_info () {
- ref=$(git symbolic-ref HEAD 2> /dev/null) || return
- echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo ":%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%}"
 }
 
 project_name () {
@@ -180,9 +180,9 @@ project_name_color () {
   echo "%{\e[0;35m%}${name}%{\e[0m%}"
 }
 
-export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
 set_prompt () {
-  export RPROMPT="$(project_name_color)$(git_prompt_info)"
+  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)'/ '
+  # export RPROMPT="$(git_prompt_info)"
 }
 
 set_term_title() {
