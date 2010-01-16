@@ -18,6 +18,7 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL=
 export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
+export CLOJURE_CLASSPATH=/Users/jon/Java/lib/clojure/clojure.jar:/Users/jon/Java/lib/clojure-contrib/clojure-contrib.jar
 # END: EXPORTS
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
@@ -45,24 +46,6 @@ compctl -K _rake rake
 
 # color module
 autoload colors ; colors	
-
-export PS1='%{$reset_color$fg[cyan]%}%2~%{$reset_color$bold_color$fg[green]%}%{$reset_color$fg[green]%}$(parse_git_branch)$(parse_svn_branch)>%{$reset_color%} '
-###########################################
-#   iTerm Tab and Title Customization     #
-###########################################
-
-parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\/git:\1/'
-}
-parse_svn_branch() {
-  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "/svn:"$1 $2 ""}'
-}
-parse_svn_url() {
-  svn info 2>/dev/null | grep -e '^URL*' | sed -e 's#^URL: *\(.*\)#\1#g '
-}
-parse_svn_repository_root() {
-  svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
-}
 
 # Keeps the paths from growing too big    
 typeset -U path manpath fpath
@@ -117,70 +100,57 @@ function reload! {
   touch tmp/restart.txt
 }
 
-# ALIASES
-alias ocaml="rlwrap ocaml"
-alias ssh='/usr/bin/ssh'
-alias ls='ls -G'
-alias ll='ls -hl'
-alias tar='nocorrect /usr/bin/tar'
-alias sudo='nocorrect sudo'
-alias ri='ri -Tf ansi'
-alias rtasks='rake --tasks'
-alias sp='./script/spec -cfs'
-alias ss='./script/server'
-alias sc='./script/console'
-alias vim='/opt/local/bin/vim -p'
-alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
-alias clj-repl='java -cp /Users/jon/Java/jar/clojure.jar:/Users/jon/Java/jar/closure-contrib.jar:/Users/jon/Java/jar/jline.jar jline.ConsoleRunner clojure.main'
-
 function push_configs {
   pushd
   cd ~/projects/configs
-  git add .
-  git ci 
+  git ci -a
   git push
   popd
 }
 
-function mysqlredo {
-  mysqladmin drop $@
-  mysqladmin create $@
-  mysql $@
+function clj {
+  local cp=$CLOJURE_CLASSPATH
+  local file
+  if [[ -n $1 ]]; then
+    if [[ $1 == '-cp' ]]; then
+      cp+=:$2
+      file=$3
+    else
+      file=$1
+    fi
+  fi
+
+  if [[ -n $file ]]; then
+    java -cp $cp $file
+  else
+    java -cp $cp:$HOME/Java/lib/jline/jline.jar jline.ConsoleRunner clojure.main
+  fi
 }
 
-alias ff='open -a FireFox'
-alias safari='open -a Safari'
-alias gvim='mvim -p &> /dev/null'
-alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
-
-bindkey '^K' kill-whole-line
-bindkey "^R" history-incremental-search-backward
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-bindkey "^J" self-insert
-
-git_prompt_info () {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo ":%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%}"
+git_prompt_info() {
+  local ref=$(git symbolic-ref HEAD 2> /dev/null)
+  if [[ -n $ref ]]; then
+    echo ":%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%}"
+  fi
 }
 
-project_name () {
-  name=$(pwd | awk -F/ '{print $NF}')
+project_name() {
+  local name=$(pwd | awk -F/ '{print $NF}')
   echo $name
 }
 
-project_name_color () {
-  name=$(project_name)
+project_name_color() {
+  local name=$(project_name)
   echo "%{\e[0;35m%}${name}%{\e[0m%}"
 }
 
-set_prompt () {
+set_prompt() {
   export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)'/ '
   # export RPROMPT="$(git_prompt_info)"
 }
 
 set_term_title() {
-  title=`ruby -e "
+  local title=`ruby -e "
     path = \"$PWD\"
     until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
       path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
@@ -210,6 +180,33 @@ function rebuild_gems {
     native_gems | awk '{print $1}' | xargs sudo gem install
   fi
 }
+
+# ALIASES
+alias ocaml="rlwrap ocaml"
+alias ssh='/usr/bin/ssh'
+alias ls='ls -G'
+alias ll='ls -hl'
+alias tar='nocorrect /usr/bin/tar'
+alias sudo='nocorrect sudo'
+alias ri='ri -Tf ansi'
+alias rtasks='rake --tasks'
+alias sp='./script/spec -cfs'
+alias ss='./script/server'
+alias sc='./script/console'
+alias vim='/opt/local/bin/vim -p'
+alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
+alias ff='open -a FireFox'
+alias safari='open -a Safari'
+alias gvim='mvim -p &> /dev/null'
+alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
+alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
+alias ng=/Users/jon/Java/lib/vimclojure/ng
+
+bindkey '^K' kill-whole-line
+bindkey "^R" history-incremental-search-backward
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^J" self-insert
 
 # -- start rip config -- #
 RIPDIR=/Users/jon/.rip

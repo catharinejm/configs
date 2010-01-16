@@ -2,10 +2,15 @@
   set nocompatible
   syntax on
 
-" Enable highlighting of clojure builtins
-  let g:clj_highlight_builtins = 1
 " Enable highlighting of ruby operators
   let g:ruby_operators = 1
+
+filetype plugin indent on
+let vimclojure#NailgunClient = "/Users/jon/Java/lib/vimclojure/ng"
+let g:clj_want_gorilla = 1
+let g:clj_highlight_builtins = 1
+let g:clj_highlight_contrib = 1
+" let g:clj_paren_rainbow = 1
 
 set scrolloff=6
 
