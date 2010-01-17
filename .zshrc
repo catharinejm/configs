@@ -19,6 +19,7 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL=
 export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
 export CLOJURE_CLASSPATH=/Users/jon/Java/lib/clojure/clojure.jar:/Users/jon/Java/lib/clojure-contrib/clojure-contrib.jar
+export GRADLE_HOME=/opt/local/share/java/gradle
 # END: EXPORTS
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
