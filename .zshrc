@@ -104,6 +104,7 @@ function reload! {
 function push_configs {
   pushd
   cd ~/projects/configs
+  git add .
   git ci -a
   git push
   popd
@@ -112,17 +113,18 @@ function push_configs {
 function clj {
   local cp=$CLOJURE_CLASSPATH
   local file
-  if [[ -n $1 ]]; then
+  if [[ $ARGC == 1 ]]; then
+    file=$1
+  elif [[ $ARGC > 1 ]]; then
     if [[ $1 == '-cp' ]]; then
       cp+=:$2
-      file=$3
+      file=$argv[3,-1]
     else
-      file=$1
+      file=$*
     fi
   fi
-
   if [[ -n $file ]]; then
-    java -cp $cp $file
+    java -cp $cp $(echo $file | xargs)
   else
     java -cp $cp:$HOME/Java/lib/jline/jline.jar jline.ConsoleRunner clojure.main
   fi
