@@ -105,4 +105,3 @@ if main_syntax == "haml"
 endif
 
 " vim:set sw=2:
-
