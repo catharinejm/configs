@@ -18,7 +18,7 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL=
 export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
-export CLOJURE_CLASSPATH=/Users/jon/Java/lib/clojure/clojure.jar:/Users/jon/Java/lib/clojure-contrib/clojure-contrib.jar
+export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
 export GRADLE_HOME=/opt/local/share/java/gradle
 # END: EXPORTS
 
@@ -204,12 +204,18 @@ alias gvim='mvim -p &> /dev/null'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
+alias gitx='gitx --all'
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^J" self-insert
+
+# rvm
+if [[ -s $HOME/.rvm/scripts/rvm ]]; then
+  source $HOME/.rvm/scripts/rvm
+fi
 
 # -- start rip config -- #
 RIPDIR=/Users/jon/.rip
