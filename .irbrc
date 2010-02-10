@@ -10,7 +10,7 @@ if script_console_running
 end
 
 IRB.conf[:IRB_RC] = proc do |conf|
-  name = "irb: "
+  name = "irb(#{RUBY_VERSION}): "
   name = "rails: " if $0 == 'irb' && ENV['RAILS_ENV'] 
   leader = " " * name.length
   conf.prompt_i = "#{name}"
