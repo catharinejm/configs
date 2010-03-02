@@ -2,7 +2,7 @@ set tabline=%!MyTabLine()
 set gcr=a:blinkon0
 set guifont=Monaco:h14
 hi LineNr guibg=#141414
-set transparency=6
+set transparency=7
 
 " pretty but not terminal-compatible color scheme
 colors baycomb
