@@ -150,7 +150,6 @@ hi rubyInterpolationDelimiter  guifg=#00A0A0      guibg=NONE      gui=NONE      
 hi rubyControl                 guifg=#6699CC      guibg=NONE      gui=NONE      ctermfg=blue           ctermbg=NONE      cterm=NONE  "and break, etc
 "hi rubyGlobalVariable          guifg=#FFCCFF      guibg=NONE      gui=NONE      ctermfg=lightblue      ctermbg=NONE      cterm=NONE  "yield
 hi rubyStringDelimiter         guifg=#336633      guibg=NONE      gui=NONE      ctermfg=lightgreen     ctermbg=NONE      cterm=NONE
-hi rubyOperator                guifg=#336633      guibg=NONE      gui=NONE      ctermfg=lightgreen     ctermbg=NONE      cterm=NONE
 "rubyInclude
 "rubySharpBang
 "rubyAccess
@@ -165,7 +164,7 @@ hi rubyOperator                guifg=#336633      guibg=NONE      gui=NONE      
 hi link rubyClass             Keyword 
 hi link rubyModule            Keyword 
 hi link rubyKeyword           Keyword 
-" hi link rubyOperator          Operator
+hi link rubyOperator          Operator
 hi link rubyIdentifier        Identifier
 hi link rubyInstanceVariable  Identifier
 hi link rubyGlobalVariable    Identifier

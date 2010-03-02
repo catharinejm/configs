@@ -17,7 +17,7 @@ hi ErrorMsg       guifg=#CF6A4C           guibg=#420E09
 hi VertSplit      guifg=#AC885B           guibg=#FFFFFF
 hi Folded         guifg=#F9EE98           guibg=#494949
 hi IncSearch      guifg=#000000           guibg=#CF6A4C
-hi LineNr         guifg=#7587A6           guibg=#000000
+hi LineNr         guifg=#7587A6           guibg=#141414
 hi ModeMsg        guifg=#CF7D34           guibg=#E9C062
 hi MoreMsg        guifg=#CF7D34           guibg=#E9C062
 hi NonText        guifg=#D2A8A1           guibg=#141414
@@ -27,7 +27,7 @@ hi SpecialKey     guifg=#CF7D34           guibg=#141414
 hi StatusLine     guifg=#0E2231           guibg=#8693A5
 hi StatusLineNC   guifg=#7587A6           guibg=#F8F8F8
 hi Title          guifg=#8B98AB           guibg=#0E2231
-hi Visual         guifg=#0E2231           guibg=#AFC4DB
+hi Visual         guibg=#393B3E
 hi WarningMsg     guifg=#CF6A4C           guibg=#420E09
 hi WildMenu       guifg=#AFC4DB           guibg=#0E2231
 
@@ -68,7 +68,7 @@ hi Underlined     guifg=#Cf6A4C
 hi Ignore         guifg=#494949
 hi Error          guifg=#CF6A4C    guibg=#420E09
 hi Todo           guifg=#7587A6    guibg=#0E2231
-hi Pmenu          guifg=#141414    guibg=#CDA869
-hi PmenuSel       guifg=#F8F8F8    guibg=#9B703F
+hi Pmenu          guibg=#1A1A1A    guifg=#808080 
+hi PmenuSel       guibg=#343434    guifg=white 
 hi PmenuSbar      guibg=#DAEFA3
 hi PmenuThumb     guifg=#8F9D6A
