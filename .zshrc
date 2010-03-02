@@ -96,6 +96,10 @@ function sudo {
 function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
+
+function diffx {
+  echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx --all
+}
      
 function reload! {
   echo Restarting passenger...

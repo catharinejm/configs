@@ -12,10 +12,12 @@ end
 IRB.conf[:IRB_RC] = proc do |conf|
   name = "irb(#{RUBY_VERSION}): "
   name = "rails: " if $0 == 'irb' && ENV['RAILS_ENV'] 
-  leader = " " * name.length
+  leader = " " * (name.length - 3)
   conf.prompt_i = "#{name}"
-  conf.prompt_s = leader + '\-" '
-  conf.prompt_c = leader + '\-+ '
+  conf.prompt_s = leader + '?> '
+  conf.prompt_c = leader + '?> '
+  conf.prompt_n = leader + '?> '
+  conf.auto_indent_mode = true
   conf.return_format = ('=' * (name.length - 2)) + "> %s\n"
 end
 
