@@ -1,9 +1,7 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-export PATH=/Library/Ruby/bin:/opt/local/bin:/Library/PostgreSQL8/bin:/opt/local/sbin:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/:$PATH
-export PATH=/opt/local/lib/postgresql83/bin:$PATH
-export PATH=$PATH:/usr/local/mongodb/bin
-export PATH=$HOME/bin:$PATH
+export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin
+export PATH=$HOME/bin:$HOME/.gem/ruby/1.8/bin:$PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=/Library/Ruby/Gems/1.8
@@ -216,6 +214,8 @@ bindkey "^R" history-incremental-search-backward
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^J" self-insert
+bindkey "^N" down-line-or-history
+bindkey "^P" up-line-or-history
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then
