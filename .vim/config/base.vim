@@ -5,7 +5,7 @@
 " Enable highlighting of ruby operators
   let g:ruby_operators = 1
 
-" filetype plugin indent on
+filetype plugin indent on
 
 set scrolloff=6
 

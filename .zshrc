@@ -188,8 +188,6 @@ function rebuild_gems {
 }
 
 # ALIASES
-alias ocaml="rlwrap ocaml"
-alias ssh='/usr/bin/ssh'
 alias ls='ls -G'
 alias ll='ls -hl'
 alias tar='nocorrect /usr/bin/tar'
@@ -208,6 +206,7 @@ alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git di
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias gitx='gitx --all'
+alias mysql=mysql5
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward
@@ -216,6 +215,8 @@ bindkey "^E" end-of-line
 bindkey "^J" self-insert
 bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
+bindkey "^F" forward-char
+bindkey "^B" backward-char
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then
