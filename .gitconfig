@@ -29,3 +29,7 @@
 	co = checkout
 	st = status
   ch = cherry -v origin
+[git-pair]
+	authors = Jon Distad <jon@theedgecase.com>
+	authors = Ken Barker <ken@theedgecase.com>
+	authors = Felix Flores <felix@theedgecase.com>

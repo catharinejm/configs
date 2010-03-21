@@ -116,9 +116,9 @@ function push_configs {
 function clj {
   local cp=$CLOJURE_CLASSPATH
   local file
-  if [[ $ARGC == 1 ]]; then
+  if [[ $ARGC -eq 1 ]]; then
     file=$1
-  elif [[ $ARGC > 1 ]]; then
+  elif [[ $ARGC -gt 1 ]]; then
     if [[ $1 == '-cp' ]]; then
       cp+=:$2
       file=$argv[3,-1]
@@ -130,6 +130,16 @@ function clj {
     java -cp $cp $(echo $file | xargs)
   else
     java -cp $cp:$HOME/Java/lib/jline/jline.jar jline.ConsoleRunner clojure.main
+  fi
+}
+
+function cljrb {
+  rvm jruby
+  local require_paths="`echo $CLOJURE_CLASSPATH | sed -E 's/(^|:)/ -r/g'`"
+  if [[ $ARGC -eq 0 ]]; then
+    irb `echo -n $require_paths | xargs`
+  else
+    ruby `echo -n $require_paths | xargs` $*
   fi
 }
 
