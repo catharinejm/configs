@@ -176,7 +176,7 @@ set_prompt() {
 }
 
 set_term_title() {
-  local title=`ruby -e "
+  local title=`default_ruby -e "
     path = \"$PWD\"
     until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
       path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
@@ -192,9 +192,9 @@ precmd() {
 }
 
 function native_gems {
-  ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
-             f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
-           end.uniq)'
+  default_ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
+                     f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
+                   end.uniq)'
 }
 
 function rebuild_gems {
