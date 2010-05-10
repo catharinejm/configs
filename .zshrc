@@ -150,6 +150,16 @@ git_prompt_info() {
   fi
 }
 
+function git_user_initials {
+  local ref=$(git symbolic-ref HEAD 2> /dev/null)
+  local inits
+  if [[ -n $ref ]]; then
+    inits=$(git config --get user.initials)
+    if [[ -z $inits ]]; then inits="-solo-"; fi
+    echo -n "($inits)"
+  fi
+}
+
 project_name() {
   local name=$(pwd | awk -F/ '{print $NF}')
   echo $name
@@ -161,7 +171,7 @@ project_name_color() {
 }
 
 set_prompt() {
-  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)'/ '
+  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
   # export RPROMPT="$(git_prompt_info)"
 }
 
@@ -215,7 +225,6 @@ alias gvim='mvim -p &> /dev/null'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
-alias gitx='gitx --all'
 alias mysql=mysql5
 
 bindkey '^K' kill-whole-line
@@ -239,3 +248,7 @@ RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
 PATH="$PATH:$RIPDIR/active/bin"
 export RIPDIR RUBYLIB PATH
 # -- end rip config -- #
+
+if [ -f $HOME/.extrarc ]; then
+  source $HOME/.extrarc
+fi

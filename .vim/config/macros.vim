@@ -22,3 +22,5 @@ let g:FuzzyFinderOptions = { 'Base':{} }
 let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
 nmap <LocalLeader>t :FuzzyFinderTextMate<cr>
 
+" ERB tags
+imap %% <%=%><Left><Left>
