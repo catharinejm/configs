@@ -24,3 +24,5 @@ nmap <LocalLeader>t :FuzzyFinderTextMate<cr>
 
 " ERB tags
 imap %% <%=%><Left><Left>
+
+nmap <LocalLeader>f :Ack<space>

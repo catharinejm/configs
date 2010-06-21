@@ -1,7 +1,8 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin
-export PATH=$HOME/bin:$HOME/.gem/ruby/1.8/bin:$PATH
+PATH=$PATH:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql84/bin
+PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/apache-activemq/bin:$PATH
+export PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=/Library/Ruby/Gems/1.8
@@ -19,6 +20,7 @@ export LC_ALL=
 export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
 export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
 export GRADLE_HOME=/opt/local/share/java/gradle
+export ACTIVEMQ_HOME=/usr/local/apache-activemq
 # END: EXPORTS
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
@@ -226,6 +228,7 @@ alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git di
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias mysql=mysql5
+alias be="bundle exec"
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward
