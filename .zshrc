@@ -178,7 +178,7 @@ set_prompt() {
 }
 
 set_term_title() {
-  local title=`default_ruby -e "
+  local title=`/usr/bin/ruby -e "
     path = \"$PWD\"
     until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
       path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
@@ -194,7 +194,7 @@ precmd() {
 }
 
 function native_gems {
-  default_ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
+  /usr/bin/ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
                      f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
                    end.uniq)'
 }
@@ -239,6 +239,7 @@ bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
 bindkey "^F" forward-char
 bindkey "^B" backward-char
+bindkey "^D" delete-char
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then
