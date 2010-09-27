@@ -5,8 +5,8 @@ PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/apache-activemq/bin:$PATH
 export PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export GEM_HOME=/Library/Ruby/Gems/1.8
-export EDITOR='vim'
+export GEM_HOME=~/.gem/ruby/1.8
+export EDITOR='/opt/local/bin/vim'
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
@@ -209,6 +209,26 @@ function rebuild_gems {
   fi
 }
 
+function sc {
+  if [ -f ./script/console ]; then
+    ./script/console
+  elif [ -f ./script/rails ]; then
+    ./script/rails console
+  else
+    echo "This isn't a rails project!"
+  fi
+}
+
+function ss {
+  if [ -f ./script/server ]; then
+    ./script/server
+  elif [ -f ./script/rails ]; then
+    ./script/rails server
+  else
+    echo "This isn't a rails project!"
+  fi
+}
+
 # ALIASES
 alias ls='ls -G'
 alias ll='ls -hl'
@@ -217,8 +237,6 @@ alias sudo='nocorrect sudo'
 alias ri='ri -Tf ansi'
 alias rtasks='rake --tasks'
 alias sp='./script/spec -cfs'
-alias ss='./script/server'
-alias sc='./script/console'
 alias vim='/opt/local/bin/vim -p'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 alias ff='open -a FireFox'
