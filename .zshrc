@@ -21,6 +21,7 @@ export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
 export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
 export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
+export JAVA_HOME=/Library/Java/Home
 # END: EXPORTS
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
@@ -178,7 +179,7 @@ set_prompt() {
 }
 
 set_term_title() {
-  local title=`/usr/bin/ruby -e "
+  local title=`system_ruby -e "
     path = \"$PWD\"
     until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
       path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
@@ -194,7 +195,7 @@ precmd() {
 }
 
 function native_gems {
-  /usr/bin/ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
+  system_ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
                      f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
                    end.uniq)'
 }
@@ -247,6 +248,7 @@ alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojur
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias mysql=mysql5
 alias be="bundle exec"
+alias system_ruby=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward

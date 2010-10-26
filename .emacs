@@ -4,6 +4,11 @@
 ;;; Move this code earlier if you want to reference
 ;;; packages in your .emacs.
 
+(add-to-list 'load-path "~/.emacs.d/non-elpa/")
+(add-to-list 'load-path "~/.emacs.d/non-elpa/color-theme-6.6.0")
+
+(require 'clojure-mode)
+
 (defun make-backup-file-name (fpath)
   (let (backup-root bpath)
     (setq backup-root "~/.emacs_backups")
@@ -29,16 +34,23 @@
 (eval-after-load 'clojure-mode
   '(progn
      (require 'paredit)
-     (defun clojure-paredit-hook () (paredit-mode +1))
-     (add-hook 'clojure-mode-hook 'clojure-paredit-hook)
+     (add-hook 'clojure-mode-hook (lambda ()
+				    (enable-paredit-mode)))
      (define-key clojure-mode-map "{" 'paredit-open-brace)
      (define-key clojure-mode-map "}" 'paredit-close-brace)))
 
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-				  (paredit-mode +1)))
+(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
 
-(add-to-list 'load-path "~/.emacs.d/non-elpa/")
-(add-to-list 'load-path "~/.emacs.d/non-elpa/color-theme-6.6.0")
+;; TODO: Find out why paredit is messed up in slime
+;; (add-hook 'slime-repl-mode-hook (lambda ()
+;;   (enable-paredit-mode)))
+
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+				  (enable-paredit-mode)))
+
+(eval-after-load 'slime
+  '(setq slime-protocol-version 'ignore))
+
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
