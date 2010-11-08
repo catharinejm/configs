@@ -1,12 +1,12 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-PATH=$PATH:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql84/bin
+PATH=/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql84/bin:$PATH
 PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/apache-activemq/bin:$PATH
 export PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
-export EDITOR='/opt/local/bin/vim'
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
@@ -178,19 +178,19 @@ set_prompt() {
   # export RPROMPT="$(git_prompt_info)"
 }
 
-set_term_title() {
-  local title=`system_ruby -e "
-    path = \"$PWD\"
-    until path.length <= 50 || path =~ /(\/[^\/])+(?=\/[^\/]+$)/ || path =~ /^\/[^\/]+$/
-      path.sub!(/(\/[^\/])[^\/]+(?=\/[^\/]+)/, '\1')
-    end
-    puts path
-  "`
-  echo -n "\e];$title\a"
-}
+# set_term_title() {
+#   local title=`system_ruby -e "
+#     path = \\"$PWD\\"
+#     until path.length <= 50 || path =~ /(\\/[^\\/])+(?=\\/[^\\/]+$)/ || path =~ /^\\/[^\\/]+$/
+#       path.sub!(/(\\/[^\\/])[^\\/]+(?=\\/[^\\/]+)/, '\\2')
+#     end
+#     puts path
+#   "`
+#   echo -n "\\e];$title\\a"
+# }
 
 precmd() {
-  set_term_title
+  # set_term_title
   set_prompt
 }
 
@@ -212,9 +212,9 @@ function rebuild_gems {
 
 function sc {
   if [ -f ./script/console ]; then
-    ./script/console
+    ./script/console $*
   elif [ -f ./script/rails ]; then
-    ./script/rails console
+    ./script/rails console $*
   else
     echo "This isn't a rails project!"
   fi
@@ -222,9 +222,9 @@ function sc {
 
 function ss {
   if [ -f ./script/server ]; then
-    ./script/server
+    ./script/server $*
   elif [ -f ./script/rails ]; then
-    ./script/rails server
+    ./script/rails server $*
   else
     echo "This isn't a rails project!"
   fi
@@ -238,7 +238,7 @@ alias sudo='nocorrect sudo'
 alias ri='ri -Tf ansi'
 alias rtasks='rake --tasks'
 alias sp='./script/spec -cfs'
-alias vim='/opt/local/bin/vim -p'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim -p'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 alias ff='open -a FireFox'
 alias safari='open -a Safari'
