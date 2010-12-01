@@ -1,10 +1,10 @@
 " New in 7.3
-" if version >= 703
-"   set undodir=~/.vim_undo/
-"   set undofile
-" 
+if version >= 703
+  set undodir=~/.vim_undo/
+  set undofile
+
 "   au BufNewFile,BufRead * set relativenumber
-" end
+end
 
 " These two enable syntax highlighting
   set nocompatible
