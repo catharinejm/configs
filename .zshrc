@@ -1,7 +1,6 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-PATH=/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql84/bin:$PATH
-PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/apache-activemq/bin:$PATH
+PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
@@ -249,6 +248,8 @@ alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias mysql=mysql5
 alias be="bundle exec"
 alias system_ruby=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby
+alias emacs="emacs -nw"
+alias e="open -a Emacs"
 
 bindkey '^K' kill-whole-line
 bindkey "^R" history-incremental-search-backward
