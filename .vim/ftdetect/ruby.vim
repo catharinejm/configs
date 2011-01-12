@@ -1,1 +1,1 @@
-au BufNewFile,BufRead Gemfile set filetype=ruby
+au BufNewFile,BufRead Gemfile,*.ru set filetype=ruby

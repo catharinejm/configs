@@ -245,7 +245,6 @@ alias gvim='mvim -p &> /dev/null'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
-alias mysql=mysql5
 alias be="bundle exec"
 alias system_ruby=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby
 alias emacs="emacs -nw"
