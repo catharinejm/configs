@@ -21,6 +21,11 @@ export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/cloju
 export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
+# For GO:
+export GOROOT=`brew --prefix go`
+export GOBIN=/usr/local/bin
+export GOARCH=amd64
+export GOOS=darwin
 # END: EXPORTS
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
