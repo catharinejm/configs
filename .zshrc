@@ -98,6 +98,17 @@ function sudo {
 	fi
 }
 
+function brew {
+  if [[ $1 == "upgrade" ]]; then
+    for recipe in $(brew outdated | awk '{print $1}'); do
+      brew rm $recipe
+      brew install $recipe
+    done
+  else
+    command brew $*
+  fi
+}
+
 function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
