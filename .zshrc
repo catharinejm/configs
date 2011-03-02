@@ -21,6 +21,7 @@ export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/cloju
 export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
+export PGDATA=/usr/local/var/postgres
 # For GO:
 export GOROOT=`brew --prefix go`
 export GOBIN=/usr/local/bin
@@ -100,9 +101,11 @@ function sudo {
 
 function brew {
   if [[ $1 == "upgrade" ]]; then
+    command brew update
+    echo Upgrading the following packages: `brew outdated`
     for recipe in $(brew outdated | awk '{print $1}'); do
-      brew rm $recipe
-      brew install $recipe
+      command brew rm $recipe
+      command brew install $recipe
     done
   else
     command brew $*
