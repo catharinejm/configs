@@ -1,7 +1,6 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
-export PATH
+export PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
@@ -256,7 +255,6 @@ alias sudo='nocorrect sudo'
 alias ri='ri -Tf ansi'
 alias rtasks='rake --tasks'
 alias sp='./script/spec -cfs'
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim -p'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 alias ff='open -a FireFox'
 alias safari='open -a Safari'

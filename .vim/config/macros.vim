@@ -2,6 +2,9 @@
 imap <D-i> <Esc>
 nmap <D-i> <Esc>
 
+" Map C-c to ESC in insert mode
+imap <C-c> <Esc>
+
 " Delete all (up to 999) buffers
 nmap <LocalLeader>bd :1,999bd
 
