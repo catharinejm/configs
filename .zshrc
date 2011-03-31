@@ -4,8 +4,8 @@ export PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$P
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-export TERM=xterm-color
+export EDITOR=vim
+export TERM=xterm-256color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -27,6 +27,9 @@ export GOBIN=/usr/local/bin
 export GOARCH=amd64
 export GOOS=darwin
 # END: EXPORTS
+
+# Emacs key bindkings
+bindkey -e
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
 function _rake_does_task_list_need_generating () {
