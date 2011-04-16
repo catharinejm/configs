@@ -1,6 +1,6 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/chroot/bin:$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
@@ -21,6 +21,7 @@ export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
 export PGDATA=/usr/local/var/postgres
+export WORDCHARS=
 # For GO:
 export GOROOT=`brew --prefix go`
 export GOBIN=/usr/local/bin
@@ -198,36 +199,8 @@ set_prompt() {
   # export RPROMPT="$(git_prompt_info)"
 }
 
-# set_term_title() {
-#   local title=`system_ruby -e "
-#     path = \\"$PWD\\"
-#     until path.length <= 50 || path =~ /(\\/[^\\/])+(?=\\/[^\\/]+$)/ || path =~ /^\\/[^\\/]+$/
-#       path.sub!(/(\\/[^\\/])[^\\/]+(?=\\/[^\\/]+)/, '\\2')
-#     end
-#     puts path
-#   "`
-#   echo -n "\\e];$title\\a"
-# }
-
 precmd() {
-  # set_term_title
   set_prompt
-}
-
-function native_gems {
-  system_ruby -e 'puts(Dir["/Library/Ruby/Gems/1.8/gems/**/*.{so,bundle}"].map do |f| 
-                     f.split("/")[6].gsub(/([\w-]+)-((?:\d+\.)+\d+)/, "\\1 (\\2)")
-                   end.uniq)'
-}
-
-function rebuild_gems {
-  if [[ $1 = '--all' ]]; then
-    echo "Rebuilding all gems..."
-    gem list | awk '{print $1}' | xargs sudo gem install
-  else
-    echo "Rebuilding gems with native extensions..."
-    native_gems | awk '{print $1}' | xargs sudo gem install
-  fi
 }
 
 function sc {
@@ -266,9 +239,7 @@ alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git di
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
-alias system_ruby=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby
 alias emacs="emacs -nw"
-alias e="open -a Emacs"
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then

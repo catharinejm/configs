@@ -132,7 +132,8 @@ if &t_Co > 255
    hi String          ctermfg=144
    hi Conditional     ctermfg=161               cterm=bold
    hi Constant        ctermfg=135               cterm=bold
-   hi Cursor          ctermfg=16  ctermbg=253
+   " hi Cursor          ctermfg=16  ctermbg=253
+   hi Cursor          ctermfg=16  ctermbg=0
    hi Debug           ctermfg=225               cterm=bold
    hi Define          ctermfg=81
    hi Delimiter       ctermfg=241
@@ -160,12 +161,14 @@ if &t_Co > 255
    hi SpecialKey      ctermfg=81
 
    hi MatchParen      ctermfg=16  ctermbg=208 cterm=bold
+   " hi MatchParen      ctermfg=208  ctermbg=16 cterm=bold
    hi ModeMsg         ctermfg=229
    hi MoreMsg         ctermfg=229
    hi Operator        ctermfg=161
 
    " complete menu
-   hi Pmenu           ctermfg=81  ctermbg=16
+   " hi Pmenu           ctermfg=81  ctermbg=16
+   hi Pmenu           ctermfg=81  ctermbg=20
    hi PmenuSel                    ctermbg=244
    hi PmenuSbar                   ctermbg=232
    hi PmenuThumb      ctermfg=81
@@ -202,7 +205,8 @@ if &t_Co > 255
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
    hi WildMenu        ctermfg=81  ctermbg=16
 
-   hi Normal          ctermfg=252 ctermbg=233
+   " hi Normal          ctermfg=252 ctermbg=233
+   hi Normal          ctermfg=252 ctermbg=000
    hi Comment         ctermfg=59
    hi CursorLine                  ctermbg=234   cterm=none
    hi CursorColumn                ctermbg=234
