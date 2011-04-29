@@ -8,6 +8,7 @@
 (add-to-list 'load-path "~/.emacs.d/non-elpa/color-theme-6.6.0")
 
 (require 'clojure-mode)
+(require 'markdown-mode)
 
 (defun make-backup-file-name (fpath)
   (let (backup-root bpath)

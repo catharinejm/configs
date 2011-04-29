@@ -256,3 +256,8 @@ export RIPDIR RUBYLIB PATH
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
+
+if [ $PWD != $HOME -a -f ./.rvmrc ]; then
+  echo "Sourcing .rvmrc..."
+  source .rvmrc
+fi
