@@ -21,6 +21,7 @@
 (ido-mode)
 (column-number-mode)
 (global-linum-mode)
+(setq-default indent-tabs-mode nil)
 
 (when
     (load
@@ -36,7 +37,7 @@
   '(progn
      (require 'paredit)
      (add-hook 'clojure-mode-hook (lambda ()
-				    (enable-paredit-mode)))
+                                    (enable-paredit-mode)))
      (define-key clojure-mode-map "{" 'paredit-open-brace)
      (define-key clojure-mode-map "}" 'paredit-close-brace)))
 
@@ -47,7 +48,7 @@
 ;;   (enable-paredit-mode)))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
-				  (enable-paredit-mode)))
+                                  (enable-paredit-mode)))
 
 (eval-after-load 'slime
   '(setq slime-protocol-version 'ignore))
@@ -56,4 +57,4 @@
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-deep-blue)))
+     (color-theme-hober)))
