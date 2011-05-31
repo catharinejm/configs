@@ -6,9 +6,11 @@
 
 (add-to-list 'load-path "~/.emacs.d/non-elpa/")
 (add-to-list 'load-path "~/.emacs.d/non-elpa/color-theme-6.6.0")
+(add-to-list 'load-path "~/.emacs.d/non-elpa/haskell-mode-2.8.0")
 
 (require 'clojure-mode)
 (require 'markdown-mode)
+(require 'haskell-mode)
 
 (defun make-backup-file-name (fpath)
   (let (backup-root bpath)
@@ -52,6 +54,9 @@
 
 (eval-after-load 'slime
   '(setq slime-protocol-version 'ignore))
+
+(eval-after-load 'haskell-mode
+  '(setq tab-width 4))
 
 (require 'color-theme)
 (eval-after-load "color-theme"

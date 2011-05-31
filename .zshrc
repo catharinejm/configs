@@ -1,6 +1,6 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/chroot/bin:$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
@@ -22,6 +22,7 @@ export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
 export PGDATA=/usr/local/var/postgres
 export WORDCHARS=
+export NODE_PATH=/usr/local/lib/node
 # For GO:
 export GOROOT=`brew --prefix go`
 export GOBIN=/usr/local/bin
@@ -115,6 +116,13 @@ function brew {
   fi
 }
 
+function proxy {
+  if [ ! -d $HOME/Code/Relevance ]; then
+    echo "The Relevance TrueCrypt volume must be mounted first!"
+  else
+    $HOME/Code/Relevance/vzb-jumphost-proxy/proxy.sh &> /dev/null &
+  fi
+}
 function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
