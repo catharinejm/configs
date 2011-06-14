@@ -9,6 +9,7 @@
 (add-to-list 'load-path "~/.emacs.d/non-elpa/haskell-mode-2.8.0")
 
 (require 'clojure-mode)
+; (require 'clojure-test-mode)
 (require 'markdown-mode)
 (require 'haskell-mode)
 
