@@ -33,34 +33,6 @@ export GOOS=darwin
 # Emacs key bindkings
 bindkey -e
 
-# START RAKE COMPLETION (caching rake tasks per project directory, not globally)
-function _rake_does_task_list_need_generating () {
-  if [ ! -f .zsh_rake_cache ]; then
-    return 0;
-  else
-    accurate=$(stat -f%m .zsh_rake_cache)
-    changed=$(stat -f%m Rakefile)
-    return $(expr $accurate '>=' $changed)
-  fi
-}
-
-function _rake () {
-  if [ -f Rakefile ]; then
-    if _rake_does_task_list_need_generating; then
-      echo "\nGenerating zsh rake cache..." > /dev/stderr
-      rake --silent --tasks | cut -d " " -f 2 > .zsh_rake_cache
-    fi
-    reply=( `cat .zsh_rake_cache` )
-  fi
-}
-compctl -K _rake rake
-# ENDING RAKE COMPLETION
-
-# color module
-autoload colors ; colors	
-
-# Keeps the paths from growing too big    
-typeset -U path manpath fpath
 
 # HISTORY
 HISTSIZE=600
@@ -77,22 +49,58 @@ setopt complete_in_word         # Not just at the end
 setopt always_to_end            # When complete from middle, move cursor
 setopt nohup										# In general, we don't kill background jobs upon logging out
 
-# COMPLETION
+autoload -U compinit && compinit                                                                                       
 zmodload -i zsh/complist
-zstyle ':completion:*' menu select=10
+
+zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:*' enable git #svn cvs 
+
+# Enable completion caching, use rehash to clear
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
+
+# Fallback to built in ls colors
+zstyle ':completion:*' list-colors ''
+
+# Make the list prompt friendly
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+
+# Make the selection prompt friendly when there are a lot of choices
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+
+# Add simple colors to kill
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+# list of completers to use
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+
+zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+
+# insert all expansions for expand completer
+# zstyle ':completion:*:expand:*' tag-order all-expansions
+ 
+# match uppercase from lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# formatting and messages
 zstyle ':completion:*' verbose yes
-
-# Completing process IDs with menu selection:
-zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:kill:*'   force-list always
-
-# Prevent CVS/SVN files/directories from being completed:
-zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)SVN'
-zstyle ':completion:*:cd:*' ignored-patterns '(*/)#SVN'
-
-## With commands like `rm' it's annoying if one gets offered the same filename
-## again even if it is already on the command line. To avoid that:
-zstyle ':completion:*:rm:*' ignore-line yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+ 
+# ignore completion functions (until the _ignored completer)
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
+zstyle '*' single-ignored show
 
 # Force 'sudo zsh' to start root as a logging shell to avoid problems with environment clashes:
 function sudo {
@@ -213,9 +221,9 @@ precmd() {
 
 function sc {
   if [ -f ./script/console ]; then
-    ./script/console $*
+    ./script/console $@
   elif [ -f ./script/rails ]; then
-    ./script/rails console $*
+    ./script/rails console $@
   else
     echo "This isn't a rails project!"
   fi
@@ -223,9 +231,9 @@ function sc {
 
 function ss {
   if [ -f ./script/server ]; then
-    ./script/server $*
+    ./script/server $@
   elif [ -f ./script/rails ]; then
-    ./script/rails server $*
+    ./script/rails server $@
   else
     echo "This isn't a rails project!"
   fi
@@ -263,9 +271,4 @@ export RIPDIR RUBYLIB PATH
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
-fi
-
-if [ $PWD != $HOME -a -f ./.rvmrc ]; then
-  echo "Sourcing .rvmrc..."
-  source .rvmrc
 fi
