@@ -13,6 +13,9 @@
 (require 'markdown-mode)
 (require 'haskell-mode)
 
+(tool-bar-mode -1)
+(set-default-font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+
 (defun make-backup-file-name (fpath)
   (let (backup-root bpath)
     (setq backup-root "~/.emacs_backups")
@@ -58,6 +61,17 @@
 
 (eval-after-load 'haskell-mode
   '(setq tab-width 4))
+
+(setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE")))
+(setq org-todo-keyword-faces '(("INPROGRESS" . "yellow")))
+(setq org-startup-folded 'showeverything)
+(setq org-special-ctrl-a/e t)
+(setq org-hide-leading-stars t)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (define-key org-mode-map (kbd "M-p") 'org-move-subtree-up)
+            (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)))
 
 (require 'color-theme)
 (eval-after-load "color-theme"
