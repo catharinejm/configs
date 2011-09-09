@@ -17,6 +17,7 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL=
 export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
 export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
+export CLOJURESCRIPT_HOME=$HOME/Code/Vendor/clojurescript
 export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
