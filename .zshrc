@@ -112,23 +112,32 @@ function sudo {
 	fi
 }
 
-function brew {
-  if [[ $1 == "upgrade" ]]; then
-    command brew update
-    echo Upgrading the following packages: `brew outdated`
-    for recipe in $(brew outdated | awk '{print $1}'); do
-      command brew rm $recipe
-      command brew install $recipe
-    done
-  else
-    command brew $*
-  fi
-}
+# function brew {
+#   if [[ $1 == "upgrade" ]]; then
+#     command brew update
+#     echo Upgrading the following packages: `brew outdated`
+#     for recipe in $(brew outdated | awk '{print $1}'); do
+#       command brew rm $recipe
+#       command brew install $recipe
+#     done
+#   else
+#     command brew $*
+#   fi
+# }
 
 function proxy {
   if [ ! -d $HOME/Code/Relevance ]; then
     echo "The Relevance TrueCrypt volume must be mounted first!"
   else
+    if [ "$1" = "ias" ]; then
+      export JUMPHOST_HOSTNAME=iasjump.icsl.net
+      export JUMPHOST_PORT=2222
+      echo "Connecting to iasjump.icsl.net:2222..."
+    else
+      export JUMPHOST_HOSTNAME=i2jump.icsl.net
+      export JUMPHOST_PORT=22
+      echo "Connecting to i2jump.icsl.net:22..."
+    fi
     $HOME/Code/Relevance/vzb-jumphost-proxy/proxy.sh &> /dev/null &
   fi
 }
@@ -257,6 +266,7 @@ alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojur
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
 alias emacs="emacs -nw"
+alias rvmrc="source ./.rvmrc"
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then
