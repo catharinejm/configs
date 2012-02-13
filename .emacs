@@ -27,6 +27,7 @@
 (ido-mode)
 (column-number-mode)
 (global-linum-mode)
+(setq linum-format "%d ")
 (setq-default indent-tabs-mode nil)
 
 (when

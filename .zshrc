@@ -283,3 +283,5 @@ export RIPDIR RUBYLIB PATH
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
