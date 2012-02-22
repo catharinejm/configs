@@ -29,3 +29,4 @@ nmap <LocalLeader>t :FuzzyFinderTextMate<cr>
 imap %% <%=%><Left><Left>
 
 nmap <LocalLeader>f :Ack<space>
+nmap <LocalLeader>c :set cuc!<cr>
