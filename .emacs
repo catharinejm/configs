@@ -12,6 +12,7 @@
 ; (require 'clojure-test-mode)
 (require 'markdown-mode)
 (require 'haskell-mode)
+(require 'haml-mode)
 
 (tool-bar-mode -1)
 (set-default-font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
@@ -25,6 +26,7 @@
 
 (show-paren-mode)
 (ido-mode)
+(auto-revert-mode)
 (column-number-mode)
 (global-linum-mode)
 (setq linum-format "%d ")
