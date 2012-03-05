@@ -1,6 +1,6 @@
 # START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/.gem/ruby/1.8/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/local/bin
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export GEM_HOME=~/.gem/ruby/1.8
@@ -247,6 +247,10 @@ function ss {
   else
     echo "This isn't a rails project!"
   fi
+}
+
+function avr-man {
+  command avr-man -M $HOME/local/share/man $@
 }
 
 # ALIASES

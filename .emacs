@@ -26,7 +26,7 @@
 
 (show-paren-mode)
 (ido-mode)
-(auto-revert-mode)
+(global-auto-revert-mode)
 (column-number-mode)
 (global-linum-mode)
 (setq linum-format "%d ")
