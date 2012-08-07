@@ -83,3 +83,6 @@ set autoindent
   let g:rails_statusline=0
 
   autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
+
+set cursorcolumn
+set cursorline

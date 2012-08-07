@@ -8,14 +8,21 @@
 (add-to-list 'load-path "~/.emacs.d/non-elpa/color-theme-6.6.0")
 (add-to-list 'load-path "~/.emacs.d/non-elpa/haskell-mode-2.8.0")
 
+(setenv "PATH" "/Users/jon/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
+
 (require 'clojure-mode)
 ; (require 'clojure-test-mode)
+(require 'clojurescript-mode)
+; (require 'durendal)
 (require 'markdown-mode)
 (require 'haskell-mode)
 (require 'haml-mode)
 
 (tool-bar-mode -1)
 (set-default-font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+
+(when (eq system-type 'darwin)
+  (setq ispell-program-name "/usr/local/bin/aspell"))
 
 (defun make-backup-file-name (fpath)
   (let (backup-root bpath)
@@ -50,11 +57,21 @@
      (define-key clojure-mode-map "{" 'paredit-open-brace)
      (define-key clojure-mode-map "}" 'paredit-close-brace)))
 
-(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+;; (durendal-enable t)
 
-;; TODO: Find out why paredit is messed up in slime
-;; (add-hook 'slime-repl-mode-hook (lambda ()
-;;   (enable-paredit-mode)))
+;; (defun slime-clojure-repl-setup ()
+;;   (when (string-equal (slime-lisp-implementation-name) "clojure")
+;;     (set-syntax-table clojure-mode-syntax-table)
+;;     (setq lisp-indent-function 'clojure-indent-function)))
+
+;; (add-hook 'slime-repl-mode-hook 'slime-clojure-repl-setup)
+
+(add-hook 'slime-repl-mode-hook 
+          (lambda ()
+            (require 'clojure-mode)
+            (require 'paredit)
+            (let (font-lock-mode)
+              (clojure-mode-font-lock-setup))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
                                   (enable-paredit-mode)))
@@ -74,7 +91,8 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (define-key org-mode-map (kbd "M-p") 'org-move-subtree-up)
-            (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)))
+            (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
+            (flyspell-mode)))
 
 (require 'color-theme)
 (eval-after-load "color-theme"

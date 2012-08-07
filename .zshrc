@@ -22,7 +22,7 @@ export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
 export PGDATA=/usr/local/var/postgres
-export WORDCHARS=
+export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export NODE_PATH=/usr/local/lib/node
 # For GO:
 export GOROOT=`brew --prefix go`
@@ -229,26 +229,6 @@ precmd() {
   set_prompt
 }
 
-function sc {
-  if [ -f ./script/console ]; then
-    ./script/console $@
-  elif [ -f ./script/rails ]; then
-    ./script/rails console $@
-  else
-    echo "This isn't a rails project!"
-  fi
-}
-
-function ss {
-  if [ -f ./script/server ]; then
-    ./script/server $@
-  elif [ -f ./script/rails ]; then
-    ./script/rails server $@
-  else
-    echo "This isn't a rails project!"
-  fi
-}
-
 function avr-man {
   command avr-man -M $HOME/local/share/man $@
 }
@@ -269,8 +249,12 @@ alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git di
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
 alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
+alias bi="bundle install"
 alias emacs="emacs -nw"
 alias rvmrc="source ./.rvmrc"
+alias rc="./script/rails console"
+alias rs="./script/rails server"
+alias rdb="./script/rails dbconsole"
 
 # rvm
 if [[ -s $HOME/.rvm/scripts/rvm ]]; then
@@ -289,3 +273,5 @@ if [ -f $HOME/.extrarc ]; then
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+ssh-add $HOME/.ssh/id_rsa > /dev/null 2>&1 # Add id_rsa key
