@@ -1,7 +1,7 @@
 --type-set=clojure=.clj,.cljs
 --type-add=ruby=.rake,.rsel,.builder
---type-add=html=.html.erb,.haml
---type-add=js=.js.erb,.ejs,.coffee
+--type-add=html=.html.erb,.haml,.hamlc
+--type-add=js=.js.erb,.ejs,.coffee,.jst
 --type-add=css=.sass,.scss
 --type-set=cucumber=.feature
 
