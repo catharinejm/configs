@@ -29,3 +29,5 @@
 	co = checkout
 	st = status
   ch = cherry -v origin
+[push]
+	default = upstream

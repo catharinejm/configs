@@ -34,13 +34,9 @@ set softtabstop=2
 set shiftwidth=2
 set autoindent
   
-""Set to auto read when a file is changed from the outside
-  set autoread
- 
-" assume the /g flag on :s substitutions to replace all matches in a line:
-  set gdefault
+set autoread
 
-  set number
+set number
 
 " If possible, try to use a narrow line number column.
   if v:version >= 700

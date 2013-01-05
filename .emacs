@@ -82,8 +82,8 @@
 (eval-after-load 'haskell-mode
   '(setq tab-width 4))
 
-(setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE")))
-(setq org-todo-keyword-faces '(("INPROGRESS" . "yellow")))
+(setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "COMPLETED" "FAILED")))
+(setq org-todo-keyword-faces '(("INPROGRESS" . "yellow") ("COMPLETED" . "green") ("FAILED" . "red")))
 (setq org-startup-folded 'showeverything)
 (setq org-special-ctrl-a/e t)
 (setq org-hide-leading-stars t)
