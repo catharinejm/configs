@@ -274,4 +274,4 @@ fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-ssh-add $HOME/.ssh/id_rsa > /dev/null 2>&1 # Add id_rsa key
+ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
