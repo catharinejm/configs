@@ -1,9 +1,7 @@
-# START: EXPORTS
 export ARCHFLAGS='-arch x86_64'
 export PATH=$HOME/.bin:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/local/bin
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export GEM_HOME=~/.gem/ruby/1.8
 export EDITOR=vim
 export TERM=xterm-256color
 export LSCOLORS=gxfxcxdxbxegedabagacad
@@ -22,7 +20,8 @@ export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export JAVA_HOME=/Library/Java/Home
 export PGDATA=/usr/local/var/postgres
-export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
+export WORDCHARS=
+#export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export NODE_PATH=/usr/local/lib/node
 # For GO:
 export GOROOT=`brew --prefix go`
@@ -103,6 +102,9 @@ zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain h
 zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
 
+# Git completion
+zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
+
 # Force 'sudo zsh' to start root as a logging shell to avoid problems with environment clashes:
 function sudo {
 	if [[ $1 = "zsh" ]]; then
@@ -150,8 +152,13 @@ function diffx {
 }
      
 function reload! {
-  echo Restarting passenger...
-  touch tmp/restart.txt
+  echo -n Restarting Rails server...
+  if touch tmp/restart.txt 2> /dev/null; then
+    echo
+  else 
+    echo 'FAILED!'
+    echo Ensure you\'re at the root of a Rails project with a tmp/ directory.
+  fi
 }
 
 function push_configs {
