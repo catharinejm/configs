@@ -19,6 +19,8 @@ silent! syn include @hamlSassTop syntax/sass.vim
 unlet! b:current_syntax
 syn include @hamlRubyTop syntax/ruby.vim
 
+setlocal iskeyword+=-
+
 syn case match
 
 syn region  rubyCurlyBlock   start="{" end="}" contains=@hamlRubyTop contained

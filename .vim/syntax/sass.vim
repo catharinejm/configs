@@ -10,6 +10,8 @@ endif
 
 runtime! syntax/css.vim
 
+setlocal iskeyword+=-
+
 syn case ignore
 
 syn cluster sassCssProperties contains=cssFontProp,cssFontDescriptorProp,cssColorProp,cssTextProp,cssBoxProp,cssGeneratedContentProp,cssPagingProp,cssUIProp,cssRenderProp,cssAuralProp,cssTableProp

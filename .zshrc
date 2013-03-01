@@ -18,7 +18,6 @@ export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/cloju
 export CLOJURESCRIPT_HOME=$HOME/Code/Vendor/clojurescript
 export GRADLE_HOME=/opt/local/share/java/gradle
 export ACTIVEMQ_HOME=/usr/local/apache-activemq
-export JAVA_HOME=/Library/Java/Home
 export PGDATA=/usr/local/var/postgres
 export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
