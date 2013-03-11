@@ -2,4 +2,5 @@
 *~
 \#*#
 .#*
-/.emacs.d/swank/*
+/.emacs.d/swank/
+/.emacs.d/auto-save-list/
