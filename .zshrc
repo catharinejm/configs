@@ -1,5 +1,5 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/local/bin
+export PATH=$HOME/.bin:$HOME/Code/Vendor/depot_tools:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/local/bin
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export EDITOR=vim
