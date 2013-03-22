@@ -61,9 +61,9 @@ syn match objjFactMethod    "^\s*+\s*"
 
 " To distinguish labels from the keyword for a method's parameter.
 syn region objjKeyForMethodParam display
-    \ start="^\s*[_a-zA-Z][_a-zA-Z0-9]*\s*:\s*("
-    \ end=")\s*[_a-zA-Z][_a-zA-Z0-9]*"
-    \ contains=objjType,Type
+  \ start="^\s*[_a-zA-Z][_a-zA-Z0-9]*\s*:\s*("
+  \ end=")\s*[_a-zA-Z][_a-zA-Z0-9]*"
+  \ contains=objjType,Type
 
 " Objective-C Constant Strings
 syn match objjSpecial display "%@" contained
@@ -103,7 +103,7 @@ syn keyword objjMessage		alert confirm prompt status
 syn keyword objjGlobal		self window top parent
 syn keyword objjMember		document event location
 syn keyword objjDeprecated	escape unescape
-syn keyword objjReserved	abstract boolean byte char class const debugger double enum export extends final float goto implements import int interface long native package private protected public short static super synchronized throws transient volatile
+syn keyword objjReserved	abstract boolean byte char class const debugger double enum export extends final float goto implements import int interface long native package private protected public short static super synchronized throws transient void volatile
 
 if exists("objj_fold")
     syn match	objjFunction      "\<function\>"

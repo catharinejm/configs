@@ -18,6 +18,7 @@ unlet! b:current_syntax
 silent! syn include @hamlSassTop syntax/sass.vim
 unlet! b:current_syntax
 syn include @hamlRubyTop syntax/ruby.vim
+syn include @hamlCoffeescript syntax/coffee.vim
 
 setlocal iskeyword+=-
 
@@ -66,6 +67,7 @@ syn region  hamlEscapedFilter    matchgroup=hamlFilter start="^\z(\s*\):\%(escap
 syn region  hamlErbFilter        matchgroup=hamlFilter start="^\z(\s*\):erb\s*$"        end="^\%(\z1 \| *$\)\@!" contains=@hamlHtmlTop,hamlErbInterpolation
 syn region  hamlRubyFilter       matchgroup=hamlFilter start="^\z(\s*\):ruby\s*$"       end="^\%(\z1 \| *$\)\@!" contains=@hamlRubyTop
 syn region  hamlJavascriptFilter matchgroup=hamlFilter start="^\z(\s*\):javascript\s*$" end="^\%(\z1 \| *$\)\@!" contains=@htmlJavaScript,hamlInterpolation keepend
+syn region  hamlCoffeescriptFilter matchgroup=hamlFilter start="^\z(\s*\):coffee\(script\)\?\s*$" end="^\%(\z1 \| *$\)\@!" contains=@hamlCoffeescript,hamlInterpolation keepend
 syn region  hamlCSSFilter        matchgroup=hamlFilter start="^\z(\s*\):css\s*$"        end="^\%(\z1 \| *$\)\@!" contains=@htmlCss,hamlInterpolation keepend
 syn region  hamlSassFilter       matchgroup=hamlFilter start="^\z(\s*\):sass\s*$"       end="^\%(\z1 \| *$\)\@!" contains=@hamlSassTop
 
