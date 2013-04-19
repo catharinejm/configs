@@ -29,6 +29,9 @@ export GOARCH=amd64
 export GOOS=darwin
 # END: EXPORTS
 
+# Cappuccino
+export NARWHAL_ENGINE=jsc
+
 # Emacs key bindkings
 bindkey -e
 
@@ -206,16 +209,6 @@ git_prompt_info() {
   fi
 }
 
-function git_user_initials {
-  local ref=$(git symbolic-ref HEAD 2> /dev/null)
-  local inits
-  if [[ -n $ref ]]; then
-    inits=$(git config --get user.initials)
-    if [[ -z $inits ]]; then inits="-solo-"; fi
-    echo -n "($inits)"
-  fi
-}
-
 project_name() {
   local name=$(pwd | awk -F/ '{print $NF}')
   echo $name
@@ -227,7 +220,7 @@ project_name_color() {
 }
 
 set_prompt() {
-  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
+  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)'$ '
   # export RPROMPT="$(git_prompt_info)"
 }
 
@@ -267,12 +260,12 @@ if [[ -s $HOME/.rvm/scripts/rvm ]]; then
   source $HOME/.rvm/scripts/rvm
 fi
 
-# -- start rip config -- #
-RIPDIR=/Users/jon/.rip
-RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
-PATH="$PATH:$RIPDIR/active/bin"
-export RIPDIR RUBYLIB PATH
-# -- end rip config -- #
+# # -- start rip config -- #
+# RIPDIR=/Users/jon/.rip
+# RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
+# PATH="$PATH:$RIPDIR/active/bin"
+# export RIPDIR RUBYLIB PATH
+# # -- end rip config -- #
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
