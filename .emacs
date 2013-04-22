@@ -25,7 +25,7 @@
 ; (setq linum-format "%d ")
 (setq-default indent-tabs-mode nil)
 (tool-bar-mode -1)
-(set-default-font "-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+(set-default-font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 ;(color-theme-molokai)
 (global-auto-revert-mode)
 
@@ -41,25 +41,25 @@
 
 (eval-after-load 'paredit
   '(progn
-     (define-key paredit-mode-map (kbd "C-<backspace>")
-       'paredit-backward-kill-word)
-     (define-key paredit-mode-map (kbd "C-w")
-       'undefined)))
+     (define-key paredit-mode-map (kbd "C-<backspace>") 'paredit-backward-kill-word)
+     (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
+     (define-key paredit-mode-map (kbd "RET") 'newline-and-indent)
+     (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)
+     (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)))
 
 (eval-after-load 'clojure-mode
   '(progn
-     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
-     (define-key clojure-mode-map "{" 'paredit-open-brace)
-     (define-key clojure-mode-map "}" 'paredit-close-brace)))
+     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))))
 
 (eval-after-load 'nrepl
   '(progn
      (add-hook 'nrepl-mode-hook (lambda () (paredit-mode +1)))
-     (define-key nrepl-mode-map (kbd "RET") '(progn
-                                               (if (eobp)
-                                                   (funcall 'nrepl-return)
-                                                 (flet ((nrepl-input-complete-p (&rest args) nil))
-                                                   (funcall 'nrepl-return)))))))
+     (define-key nrepl-mode-map (kbd "RET") (lambda ()
+                                              (interactive)
+                                              (if (eobp)
+                                                  (funcall 'nrepl-return)
+                                                (flet ((nrepl-input-complete-p (&rest args) nil))
+                                                  (funcall 'nrepl-return)))))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
 
