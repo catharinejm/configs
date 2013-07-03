@@ -43,17 +43,19 @@
   '(progn
      (define-key paredit-mode-map (kbd "C-<backspace>") 'paredit-backward-kill-word)
      (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
-     (define-key paredit-mode-map (kbd "RET") 'newline-and-indent)
      (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)
      (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)))
 
+
 (eval-after-load 'clojure-mode
   '(progn
-     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))))
+     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
+     (define-key clojure-mode-map (kbd "RET") 'newline-and-indent)))
 
 (eval-after-load 'nrepl
   '(progn
      (add-hook 'nrepl-mode-hook (lambda () (paredit-mode +1)))
+     (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
      (define-key nrepl-mode-map (kbd "RET") (lambda ()
                                               (interactive)
                                               (if (eobp)
@@ -74,3 +76,14 @@
             (define-key org-mode-map (kbd "M-p") 'org-move-subtree-up)
             (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
             (flyspell-mode)))
+
+;; (add-hook 'erc-insert-post-hook
+;;           (lambda ()
+;;             (let ((notify-cmd "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
+;;                   (window-config (current-window-configuration)))
+;;               (unwind-protect
+;;                   (when (string-match "\\bjon\\(?:distad\\)?\\b" (buffer-string))
+;;                     (call-process notify-cmd nil nil "-title" (buffer-name) "-message" (buffer-string))))
+;;               (set-window-configuration window-config))
+;;             (buffer-string)))
+

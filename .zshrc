@@ -267,13 +267,6 @@ if [[ -s $HOME/.rvm/scripts/rvm ]]; then
   source $HOME/.rvm/scripts/rvm
 fi
 
-# -- start rip config -- #
-RIPDIR=/Users/jon/.rip
-RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
-PATH="$PATH:$RIPDIR/active/bin"
-export RIPDIR RUBYLIB PATH
-# -- end rip config -- #
-
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
