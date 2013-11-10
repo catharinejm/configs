@@ -23,11 +23,17 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export NODE_PATH=/usr/local/lib/node
 # For GO:
-export GOROOT=`brew --prefix go`
+export GOROOT=`brew --prefix go`/libexec
 export GOBIN=/usr/local/bin
 export GOARCH=amd64
 export GOOS=darwin
+export GOPATH=$HOME/go
 # END: EXPORTS
+
+# CLANG WITH LIBCXX
+# export CXX="clang++-3.3"
+# export CXXFLAGS="-stdlib=libc++ -nostdinc++ -I/usr/local/lib/llvm-3.3/lib/c++/v1"
+# export LDFLAGS="-L/usr/local/lib/llvm-3.3/usr/lib"
 
 # Emacs key bindkings
 bindkey -e
@@ -113,19 +119,6 @@ function sudo {
 	fi
 }
 
-# function brew {
-#   if [[ $1 == "upgrade" ]]; then
-#     command brew update
-#     echo Upgrading the following packages: `brew outdated`
-#     for recipe in $(brew outdated | awk '{print $1}'); do
-#       command brew rm $recipe
-#       command brew install $recipe
-#     done
-#   else
-#     command brew $*
-#   fi
-# }
-
 function proxy {
   if [ ! -d $HOME/Code/Relevance ]; then
     echo "The Relevance TrueCrypt volume must be mounted first!"
@@ -189,15 +182,15 @@ function clj {
   fi
 }
 
-function cljrb {
-  rvm jruby
-  local require_paths="`echo $CLOJURE_CLASSPATH | sed -E 's/(^|:)/ -r/g'`"
-  if [[ $ARGC -eq 0 ]]; then
-    irb `echo -n $require_paths | xargs`
-  else
-    ruby `echo -n $require_paths | xargs` $*
-  fi
-}
+# function cljrb {
+#   rvm jruby
+#   local require_paths="`echo $CLOJURE_CLASSPATH | sed -E 's/(^|:)/ -r/g'`"
+#   if [[ $ARGC -eq 0 ]]; then
+#     irb `echo -n $require_paths | xargs`
+#   else
+#     ruby `echo -n $require_paths | xargs` $*
+#   fi
+# }
 
 git_prompt_info() {
   local ref=$(git symbolic-ref HEAD 2> /dev/null)
@@ -257,7 +250,7 @@ alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
 alias bi="bundle install"
 alias emacs="emacs -nw"
-alias rvmrc="source ./.rvmrc"
+#alias rvmrc="source ./.rvmrc"
 alias rc="./script/rails console"
 alias rs="./script/rails server"
 alias rdb="./script/rails dbconsole"
@@ -271,6 +264,9 @@ if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Homebrew GitHub API token
+export HOMEBREW_GITHUB_API_TOKEN=78b18043bd1f37122ae840773e777e57abf5b8dc

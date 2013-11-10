@@ -44,19 +44,30 @@
      (define-key paredit-mode-map (kbd "C-<backspace>") 'paredit-backward-kill-word)
      (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
      (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)
-     (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)))
+     (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
+     (define-key paredit-mode-map (kbd "{") 'paredit-open-curly)
+     (define-key paredit-mode-map (kbd "}") 'paredit-close-curly)))
 
+;; (add-hook 'c-mode-common-hook (lambda ()
+;;                                 (local-set-key (kbd "RET") 'newline-and-indent)))
+
+(setq c-default-style "linux"
+      c-basic-offset 4)
+
+;; (add-hook 'emacs-lisp-mode-hook (lambda ()
+;;                                   (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (eval-after-load 'clojure-mode
   '(progn
      (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
-     (define-key clojure-mode-map (kbd "RET") 'newline-and-indent)))
+     ;; (define-key clojure-mode-map (kbd "RET") 'newline-and-indent)
+     ))
 
 (eval-after-load 'nrepl
   '(progn
-     (add-hook 'nrepl-mode-hook (lambda () (paredit-mode +1)))
-     (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-     (define-key nrepl-mode-map (kbd "RET") (lambda ()
+     (add-hook 'nrepl-repl-mode-hook (lambda () (paredit-mode +1)))
+     (add-hook 'nrepl-repl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+     (define-key nrepl-repl-mode-map (kbd "RET") (lambda ()
                                               (interactive)
                                               (if (eobp)
                                                   (funcall 'nrepl-return)
@@ -64,6 +75,23 @@
                                                   (funcall 'nrepl-return)))))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'scheme-mode-hook (lambda ()
+                               (paredit-mode +1)
+                               ;; (define-key scheme-mode-map (kbd "RET") 'newline-and-indent)
+                               ))
+
+(defun indent-on-return (modes)
+  (if modes
+      (let* ((mode (car modes))
+             (hook-name (intern (concat (symbol-name mode) "-hook"))))
+        (add-hook `,hook-name (lambda ()
+                              (local-set-key (kbd "RET") 'newline-and-indent)))
+        (indent-on-return (cdr modes)))))
+
+(indent-on-return '(c-mode-common
+                    clojure-mode
+                    emacs-lisp-mode
+                    scheme-mode))
 
 (setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "COMPLETED" "FAILED")))
 (setq org-todo-keyword-faces '(("INPROGRESS" . "yellow") ("COMPLETED" . "green") ("FAILED" . "red")))

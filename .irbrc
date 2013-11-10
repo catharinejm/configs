@@ -30,3 +30,12 @@ begin
     File::open(histfile, File::WRONLY|File::CREAT|File::TRUNC) { |io| io.puts lines.join("\n") }
   end
 end
+
+def m(o)
+  case o
+  when Module
+    (o.methods - Module.methods).sort
+  else
+    (o.methods - Object.instance_methods).sort
+  end
+end

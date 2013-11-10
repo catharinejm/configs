@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead Procfile,.gemrc setf yaml
+autocmd BufNewFile,BufRead Procfile,.gemrc,.ebextensions/*.config setf yaml
