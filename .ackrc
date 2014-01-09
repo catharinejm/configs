@@ -13,6 +13,8 @@
 --ignore-dir=quality
 --ignore-dir=fixtures
 --ignore-dir=system
+--ignore-dir=target
+--ignore-dir=.mocha
 
 --sort-files
 --color

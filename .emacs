@@ -14,6 +14,10 @@
       (setq the-plist (cddr the-plist)))
     alist))
 
+(setq exec-path (append (list "/Users/jon/local/bin" "/usr/local/bin") exec-path))
+(setenv "PATH" "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jon/local/bin")
+(setenv "SCHEMEHEAPDIRS" "/Users/jon/local/lib/csv%v/%m")
+
 (require 'color-theme)
 (eval-after-load 'color-theme
   '(color-theme-hober))
@@ -32,13 +36,6 @@
 (when (eq system-type 'darwin)
   (setq ispell-program-name "/usr/local/bin/aspell"))
 
-(defun make-backup-file-name (fpath)
-  (let (backup-root bpath)
-    (setq backup-root "~/.emacs_backups")
-    (setq bpath (concat backup-root fpath "~"))
-    (make-directory (file-name-directory bpath) bpath)
-    bpath))
-
 (eval-after-load 'paredit
   '(progn
      (define-key paredit-mode-map (kbd "C-<backspace>") 'paredit-backward-kill-word)
@@ -48,20 +45,13 @@
      (define-key paredit-mode-map (kbd "{") 'paredit-open-curly)
      (define-key paredit-mode-map (kbd "}") 'paredit-close-curly)))
 
-;; (add-hook 'c-mode-common-hook (lambda ()
-;;                                 (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (setq c-default-style "linux"
       c-basic-offset 4)
 
-;; (add-hook 'emacs-lisp-mode-hook (lambda ()
-;;                                   (local-set-key (kbd "RET") 'newline-and-indent)))
-
 (eval-after-load 'clojure-mode
   '(progn
-     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
-     ;; (define-key clojure-mode-map (kbd "RET") 'newline-and-indent)
-     ))
+     (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))))
 
 (eval-after-load 'nrepl
   '(progn
@@ -76,9 +66,9 @@
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook (lambda ()
-                               (paredit-mode +1)
-                               ;; (define-key scheme-mode-map (kbd "RET") 'newline-and-indent)
-                               ))
+                               (paredit-mode +1)))
+
+
 
 (defun indent-on-return (modes)
   (if modes
@@ -93,6 +83,11 @@
                     emacs-lisp-mode
                     scheme-mode))
 
+(mapc (lambda (s) (put s 'scheme-indent-function 'defun))
+      (list 'run* 'run 'fresh 'conde 'module 'if))
+;(setq scheme-program-name "petite")
+(setq scheme-program-name "csi")
+
 (setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "COMPLETED" "FAILED")))
 (setq org-todo-keyword-faces '(("INPROGRESS" . "yellow") ("COMPLETED" . "green") ("FAILED" . "red")))
 (setq org-startup-folded 'showeverything)
@@ -104,14 +99,3 @@
             (define-key org-mode-map (kbd "M-p") 'org-move-subtree-up)
             (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
             (flyspell-mode)))
-
-;; (add-hook 'erc-insert-post-hook
-;;           (lambda ()
-;;             (let ((notify-cmd "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
-;;                   (window-config (current-window-configuration)))
-;;               (unwind-protect
-;;                   (when (string-match "\\bjon\\(?:distad\\)?\\b" (buffer-string))
-;;                     (call-process notify-cmd nil nil "-title" (buffer-name) "-message" (buffer-string))))
-;;               (set-window-configuration window-config))
-;;             (buffer-string)))
-

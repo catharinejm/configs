@@ -30,6 +30,15 @@ export GOOS=darwin
 export GOPATH=$HOME/go
 # END: EXPORTS
 
+# Chez Scheme
+export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
+
+# Java
+export JAVA_HOME="`/usr/libexec/java_home`"
+# AWS IAM
+export AWS_IAM_HOME=/usr/local/opt/aws-iam-tools/libexec
+export AWS_CREDENTIAL_FILE=$HOME/.aws-credentials-master
+
 # CLANG WITH LIBCXX
 # export CXX="clang++-3.3"
 # export CXXFLAGS="-stdlib=libc++ -nostdinc++ -I/usr/local/lib/llvm-3.3/lib/c++/v1"
