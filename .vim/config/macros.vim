@@ -19,11 +19,7 @@ imap <F1> <Esc>a
 nmap <LocalLeader>w :set wrap!<cr>
 
 " Fuzzyfinder
-let g:FuzzyFinderOptions = { 'Base':{} }
-let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
-let g:FuzzyFinderOptions = { 'Base':{} }
-let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
-nmap <LocalLeader>t :FuzzyFinderTextMate<cr>
+nmap <LocalLeader>t :FufFile<cr>
 
 " ERB tags
 imap %% <%=%><Left><Left>

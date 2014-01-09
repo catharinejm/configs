@@ -9,6 +9,7 @@ if !has("gui_running") && $TERM == "xterm-256color"
   hi StatusLine ctermfg=250 ctermbg=232
   hi StatusLineNC ctermfg=235 ctermbg=255
   hi Pmenu           ctermfg=16  ctermbg=208
+  hi PmenuSel           ctermfg=255 ctermbg=236
   hi Cursor          ctermfg=16  ctermbg=0
   hi Special          ctermbg=233
 

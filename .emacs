@@ -1,7 +1,22 @@
 (require 'package)
 (add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
+
+(defun melpa-packages-enable ()
+  (interactive)
+  (unless (boundp 'package-archives-backup)
+    (setq package-archives-backup (copy-alist package-archives))
+    (setq package-archives (cons '("melpa" . "http://melpa.milkbox.net/packages/") package-archives))))
+(defun melpa-packages-disable ()
+  (interactive)
+  (when (boundp 'package-archives-backup)
+    (setq package-archives package-archives-backup)
+    (makunbound 'package-archives-backup)))
+(defun melpa-packages ()
+  (interactive)
+  (melpa-packages-enable)
+  (package-list-packages))
 
 (defun plist-to-alist (the-plist)
   (defun get-tuple-from-plist (the-plist)
@@ -23,6 +38,7 @@
   '(color-theme-hober))
 
 (ido-mode)
+(flx-ido-mode)
 (global-linum-mode)
 (show-paren-mode)
 (column-number-mode)
@@ -99,3 +115,7 @@
             (define-key org-mode-map (kbd "M-p") 'org-move-subtree-up)
             (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
             (flyspell-mode)))
+
+(require 'find-file-in-project)
+(setq ffip-patterns (append (list "*.scala") ffip-patterns))
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)

@@ -250,7 +250,6 @@ alias ri='ri -Tf ansi'
 alias rtasks='rake --tasks'
 alias sp='./script/spec -cfs'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
-alias ff='open -a FireFox'
 alias safari='open -a Safari'
 alias gvim='mvim -p &> /dev/null'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
