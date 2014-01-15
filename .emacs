@@ -37,8 +37,11 @@
 (eval-after-load 'color-theme
   '(color-theme-hober))
 
-(ido-mode)
-(flx-ido-mode)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;(setq ido-use-faces nil)
+;(setq flx-ido-use-faces nil)
 (global-linum-mode)
 (show-paren-mode)
 (column-number-mode)
@@ -118,4 +121,35 @@
 
 (require 'find-file-in-project)
 (setq ffip-patterns (append (list "*.scala") ffip-patterns))
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+(setq ffip-limit 1024)
+
+(defun find-file-in-project-with-options ()
+  (interactive)
+  (let ((ffip-find-options (if (boundp 'ffip-exclude-dirs)
+                               (format "\\( %s \\)"
+                                       (mapconcat (lambda (dir)
+                                                    (format "-not -regex \".*/%s/.*\""
+                                                            (replace-regexp-in-string "\\." "\\\\." dir)))
+                                                  ffip-exclude-dirs
+                                                  " -and "))
+                             ffip-find-options))
+        (ffip-patterns (if (boundp 'ffip-additional-patterns)
+                           (append ffip-additional-patterns ffip-patterns)
+                         ffip-patterns)))
+    (find-file-in-project)))
+
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project-with-options)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha") (ffip-additional-patterns ("*.conf" "*.dist" "routes")) (ffip-exclude-dirs ("target" "node_modules" ".mocha"))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

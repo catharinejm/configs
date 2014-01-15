@@ -22,6 +22,7 @@
 	tool = opendiff
 [core]
 	legacyheaders = false
+	excludesfile = /Users/jon/.gitignore_global
 [repack]
 	usedeltabaseoffset = true
 [alias]
