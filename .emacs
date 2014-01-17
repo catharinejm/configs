@@ -33,9 +33,7 @@
 (setenv "PATH" "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jon/local/bin")
 (setenv "SCHEMEHEAPDIRS" "/Users/jon/local/lib/csv%v/%m")
 
-(require 'color-theme)
-(eval-after-load 'color-theme
-  '(color-theme-hober))
+(load-theme 'monokai t)
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -45,7 +43,7 @@
 (global-linum-mode)
 (show-paren-mode)
 (column-number-mode)
-; (setq linum-format "%d ")
+;(setq linum-format "%d ")
 (setq-default indent-tabs-mode nil)
 (tool-bar-mode -1)
 (set-default-font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
@@ -94,13 +92,14 @@
       (let* ((mode (car modes))
              (hook-name (intern (concat (symbol-name mode) "-hook"))))
         (add-hook `,hook-name (lambda ()
-                              (local-set-key (kbd "RET") 'newline-and-indent)))
+                                (local-set-key (kbd "RET") 'newline-and-indent)))
         (indent-on-return (cdr modes)))))
 
 (indent-on-return '(c-mode-common
                     clojure-mode
                     emacs-lisp-mode
-                    scheme-mode))
+                    scheme-mode
+                    scala-mode))
 
 (mapc (lambda (s) (put s 'scheme-indent-function 'defun))
       (list 'run* 'run 'fresh 'conde 'module 'if))
@@ -120,7 +119,7 @@
             (flyspell-mode)))
 
 (require 'find-file-in-project)
-(setq ffip-patterns (append (list "*.scala") ffip-patterns))
+(setq ffip-patterns (append (list "*.scala" "*.coffee") ffip-patterns))
 (setq ffip-limit 1024)
 
 (defun find-file-in-project-with-options ()
@@ -138,7 +137,8 @@
                          ffip-patterns)))
     (find-file-in-project)))
 
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project-with-options)
+(global-set-key (kbd "C-x M-f") 'find-file-in-project-with-options)
+(global-set-key (kbd "C-x M-g") 'rgrep)
 
 
 (custom-set-variables
@@ -146,10 +146,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha") (ffip-additional-patterns ("*.conf" "*.dist" "routes")) (ffip-exclude-dirs ("target" "node_modules" ".mocha"))))))
+ '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-lock-builtin-face ((t (:foreground "#FD971F" :weight normal))))
+ '(font-lock-type-face ((t (:foreground "#66D9EF" :slant normal))))
+ '(font-lock-warning-face ((t (:inherit error :foreground "#FD971F" :underline t :slant normal :weight bold))))
+ '(italic ((t (:slant normal)))))
