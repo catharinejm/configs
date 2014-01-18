@@ -139,6 +139,7 @@
 
 (global-set-key (kbd "C-x M-f") 'find-file-in-project-with-options)
 (global-set-key (kbd "C-x M-g") 'rgrep)
+(global-set-key (kbd "C-M-g") 'magit-status)
 
 
 (custom-set-variables
