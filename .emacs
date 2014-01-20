@@ -70,16 +70,16 @@
   '(progn
      (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))))
 
-(eval-after-load 'nrepl
+(eval-after-load 'cider-repl
   '(progn
-     (add-hook 'nrepl-repl-mode-hook (lambda () (paredit-mode +1)))
-     (add-hook 'nrepl-repl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-     (define-key nrepl-repl-mode-map (kbd "RET") (lambda ()
+     (add-hook 'cider-repl-mode-hook (lambda () (paredit-mode +1)))
+     (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+     (define-key cider-repl-mode-map (kbd "RET") (lambda ()
                                               (interactive)
                                               (if (eobp)
-                                                  (funcall 'nrepl-return)
-                                                (flet ((nrepl-input-complete-p (&rest args) nil))
-                                                  (funcall 'nrepl-return)))))))
+                                                  (funcall 'cider-repl-return)
+                                                (flet ((cider-repl--input-complete-p (&rest args) nil))
+                                                  (funcall 'cider-repl-return)))))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook (lambda ()
@@ -140,6 +140,7 @@
 (global-set-key (kbd "C-x M-f") 'find-file-in-project-with-options)
 (global-set-key (kbd "C-x M-g") 'rgrep)
 (global-set-key (kbd "C-M-g") 'magit-status)
+(global-set-key (kbd "M-k") 'kill-sexp)
 
 
 (custom-set-variables

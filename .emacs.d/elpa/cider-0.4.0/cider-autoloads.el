@@ -3,9 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads (cider cider-jack-in) "cider" "cider.el" (21185
-;;;;;;  45434 0 0))
-;;; Generated autoloads from cider.el
+;;;### (autoloads (cider cider-jack-in) "cider" "../../../../.emacs.d/elpa/cider-0.4.0/cider.el"
+;;;;;;  "8951f319e40d80693db485472283a162")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/cider-0.4.0/cider.el
 
 (autoload 'cider-jack-in "cider" "\
 Start a nREPL server for the current project and connect to it.
@@ -24,8 +24,9 @@ Connect to an nREPL server identified by HOST and PORT.
 ;;;***
 
 ;;;### (autoloads (cider-macroexpand-all cider-macroexpand-1) "cider-macroexpansion"
-;;;;;;  "cider-macroexpansion.el" (21185 45434 0 0))
-;;; Generated autoloads from cider-macroexpansion.el
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-macroexpansion.el"
+;;;;;;  "09af416b31aebcdb14372528f4853648")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/cider-0.4.0/cider-macroexpansion.el
 
 (autoload 'cider-macroexpand-1 "cider-macroexpansion" "\
 Invoke 'macroexpand-1' on the expression at point.
@@ -41,9 +42,9 @@ Invoke 'clojure.walk/macroexpand-all' on the expression at point.
 
 ;;;***
 
-;;;### (autoloads (cider-mode) "cider-mode" "cider-mode.el" (21185
-;;;;;;  45434 0 0))
-;;; Generated autoloads from cider-mode.el
+;;;### (autoloads (cider-mode) "cider-mode" "../../../../.emacs.d/elpa/cider-0.4.0/cider-mode.el"
+;;;;;;  "29f34a541b06a6ac6f01957f2facef03")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/cider-0.4.0/cider-mode.el
 
 (autoload 'cider-mode "cider-mode" "\
 Minor mode for REPL interaction from a Clojure buffer.
@@ -54,9 +55,9 @@ Minor mode for REPL interaction from a Clojure buffer.
 
 ;;;***
 
-;;;### (autoloads (cider-selector) "cider-selector" "cider-selector.el"
-;;;;;;  (21185 45434 0 0))
-;;; Generated autoloads from cider-selector.el
+;;;### (autoloads (cider-selector) "cider-selector" "../../../../.emacs.d/elpa/cider-0.4.0/cider-selector.el"
+;;;;;;  "b7dd99ddab57b69a10fe32da5c660007")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/cider-0.4.0/cider-selector.el
 
 (autoload 'cider-selector "cider-selector" "\
 Select a new buffer by type, indicated by a single character.
@@ -70,9 +71,14 @@ See `def-cider-selector-method' for defining new methods.
 
 ;;;***
 
-;;;### (autoloads nil nil ("cider-client.el" "cider-eldoc.el" "cider-interaction.el"
-;;;;;;  "cider-pkg.el" "cider-repl.el" "cider-util.el" "cider-version.el"
-;;;;;;  "nrepl-client.el") (21185 45434 774338 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/cider-0.4.0/cider-client.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-eldoc.el" "../../../../.emacs.d/elpa/cider-0.4.0/cider-interaction.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-macroexpansion.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-mode.el" "../../../../.emacs.d/elpa/cider-0.4.0/cider-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-repl.el" "../../../../.emacs.d/elpa/cider-0.4.0/cider-selector.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider-util.el" "../../../../.emacs.d/elpa/cider-0.4.0/cider-version.el"
+;;;;;;  "../../../../.emacs.d/elpa/cider-0.4.0/cider.el" "../../../../.emacs.d/elpa/cider-0.4.0/nrepl-client.el")
+;;;;;;  (21210 37762 502466 0))
 
 ;;;***
 
