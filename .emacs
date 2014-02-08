@@ -1,6 +1,6 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 (defun melpa-packages-enable ()
@@ -18,22 +18,22 @@
   (melpa-packages-enable)
   (package-list-packages))
 
-(defun plist-to-alist (the-plist)
-  (defun get-tuple-from-plist (the-plist)
-    (when the-plist
-      (cons (car the-plist) (cadr the-plist))))
 
-  (let ((alist '()))
-    (while the-plist
-      (add-to-list 'alist (get-tuple-from-plist the-plist))
-      (setq the-plist (cddr the-plist)))
-    alist))
+(setq
+ backup-by-copying t
+ backup-directory-alist '(("." . "~/.emacs_backups"))
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)
 
 (setq exec-path (append (list "/Users/jon/local/bin" "/usr/local/bin") exec-path))
 (setenv "PATH" "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jon/local/bin")
 (setenv "SCHEMEHEAPDIRS" "/Users/jon/local/lib/csv%v/%m")
 
-(load-theme 'monokai t)
+;(load-theme 'monokai t)
+(setq solarized-broken-srgb nil)
+(load-theme 'solarized-dark t)
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -84,6 +84,9 @@
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook (lambda ()
                                (paredit-mode +1)))
+(add-hook 'c-mode-hook (lambda ()
+                         (setq comment-start "// "
+                               comment-end "")))
 
 
 
@@ -118,6 +121,11 @@
             (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
             (flyspell-mode)))
 
+(eval-after-load 'coffee-mode
+  '(setq coffee-tab-width 2))
+(eval-after-load 'css-mode
+  '(setq css-indent-offset 2))
+
 (require 'find-file-in-project)
 (setq ffip-patterns (append (list "*.scala" "*.coffee") ffip-patterns))
 (setq ffip-limit 1024)
@@ -141,6 +149,7 @@
 (global-set-key (kbd "C-x M-g") 'rgrep)
 (global-set-key (kbd "C-M-g") 'magit-status)
 (global-set-key (kbd "M-k") 'kill-sexp)
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 
 (custom-set-variables
@@ -148,13 +157,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha")))))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(go-fontify-function-calls t)
+ '(safe-local-variable-values (quote ((ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-builtin-face ((t (:foreground "#FD971F" :weight normal))))
- '(font-lock-type-face ((t (:foreground "#66D9EF" :slant normal))))
- '(font-lock-warning-face ((t (:inherit error :foreground "#FD971F" :underline t :slant normal :weight bold))))
  '(italic ((t (:slant normal)))))
