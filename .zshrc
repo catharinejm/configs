@@ -1,5 +1,6 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/Code/Vendor/depot_tools:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/local/bin
+export PATH=$HOME/.bin:$HOME/local/bin:$HOME/Code/Vendor/depot_tools:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export EDITOR=vim
@@ -21,7 +22,7 @@ export ACTIVEMQ_HOME=/usr/local/apache-activemq
 export PGDATA=/usr/local/var/postgres
 export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
-export NODE_PATH=/usr/local/lib/node
+export NODE_PATH=/usr/local/opt/node/lib
 # For GO:
 export GOROOT=`brew --prefix go`/libexec
 export GOBIN=/usr/local/bin
@@ -49,8 +50,8 @@ bindkey -e
 
 
 # HISTORY
-HISTSIZE=600
-SAVEHIST=600
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 setopt APPEND_HISTORY 
 setopt INC_APPEND_HISTORY 

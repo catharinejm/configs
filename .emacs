@@ -30,6 +30,7 @@
 (setq exec-path (append (list "/Users/jon/local/bin" "/usr/local/bin") exec-path))
 (setenv "PATH" "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jon/local/bin")
 (setenv "SCHEMEHEAPDIRS" "/Users/jon/local/lib/csv%v/%m")
+(setenv "NODE_PATH" "/usr/local/opt/node/lib")
 
 ;(load-theme 'monokai t)
 (setq solarized-broken-srgb nil)
@@ -102,7 +103,9 @@
                     clojure-mode
                     emacs-lisp-mode
                     scheme-mode
-                    scala-mode))
+                    scala-mode
+                    ruby-mode
+                    js-mode))
 
 (mapc (lambda (s) (put s 'scheme-indent-function 'defun))
       (list 'run* 'run 'fresh 'conde 'module 'if))
@@ -121,6 +124,10 @@
             (define-key org-mode-map (kbd "M-n") 'org-move-subtree-down)
             (flyspell-mode)))
 
+(add-hook 'js-mode-hook
+          (lambda () (setq js-indent-level 2)))
+(eval-after-load 'nginx-mode
+  '(setq nginx-indent-level 2))
 (eval-after-load 'coffee-mode
   '(setq coffee-tab-width 2))
 (eval-after-load 'css-mode
@@ -157,13 +164,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(custom-safe-themes (quote ("43f70787edac4d896ec8e14579e52501665e61d5dc02de3c237f82fd5d8e0a6a" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(go-fontify-function-calls t)
- '(safe-local-variable-values (quote ((ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
- '(tab-width 4))
+ '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes" "*.ejs") (ffip-additional-patterns "*.conf" "*.dist" "routes" (\, "*.ejs")) (ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
+ '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(font-lock-builtin-face ((t (:foreground "#b58900" :weight bold))))
  '(italic ((t (:slant normal)))))
