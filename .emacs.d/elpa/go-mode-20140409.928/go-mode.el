@@ -7,6 +7,7 @@
 (require 'cl)
 (require 'etags)
 (require 'ffap)
+(require 'find-file)
 (require 'ring)
 (require 'url)
 
@@ -130,7 +131,7 @@
   "All keywords in the Go language.  Used for font locking.")
 
 (defconst go-constants '("nil" "true" "false" "iota"))
-(defconst go-type-name-regexp (concat "\\(?:\\[[[:space:]]*\\]\\|\\*\\)*[[:space:]]*\\(?:" go-identifier-regexp "\\.\\)?\\(" go-identifier-regexp "\\)"))
+(defconst go-type-name-regexp (concat "\\(?:[*(]\\)*\\(?:" go-identifier-regexp "\\.\\)?\\(" go-identifier-regexp "\\)"))
 
 (defvar go-dangling-cache)
 (defvar go-godoc-history nil)
@@ -166,6 +167,13 @@ customize this variable to point to the wrapper script."
   "The 'gofmt' command.  Some users may replace this with 'goimports'
 from https://github.com/bradfitz/goimports."
   :type 'string
+  :group 'go)
+
+(defcustom go-other-file-alist
+  '(("_test\\.go\\'" (".go"))
+    ("\\.go\\'" ("_test.go")))
+  "See the documentation of `ff-other-file-alist' for details."
+  :type '(repeat (list regexp (choice (repeat string) function)))
   :group 'go)
 
 (defface go-coverage-untracked
@@ -254,25 +262,19 @@ For mode=set, all covered lines will have this weight."
   ;; doesn't understand that
   (append
    `((,(go--regexp-enclose-in-symbol (regexp-opt go-mode-keywords t)) . font-lock-keyword-face)
-     (,(go--regexp-enclose-in-symbol (regexp-opt go-builtins t)) . font-lock-builtin-face)
+     (,(concat "\\(" (go--regexp-enclose-in-symbol (regexp-opt go-builtins t)) "\\)[[:space:]]*(") 1 font-lock-builtin-face)
      (,(go--regexp-enclose-in-symbol (regexp-opt go-constants t)) . font-lock-constant-face)
      (,go-func-regexp 1 font-lock-function-name-face)) ;; function (not method) name
 
    (if go-fontify-function-calls
        `((,(concat "\\(" go-identifier-regexp "\\)[[:space:]]*(") 1 font-lock-function-name-face) ;; function call/method name
          (,(concat "[^[:word:][:multibyte:]](\\(" go-identifier-regexp "\\))[[:space:]]*(") 1 font-lock-function-name-face)) ;; bracketed function call
-     `((,go-func-meth-regexp 1 font-lock-function-name-face))) ;; method name
+     `((,go-func-meth-regexp 2 font-lock-function-name-face))) ;; method name
 
    `(
+     ("\\(`[^`]*`\\)" 1 font-lock-multiline) ;; raw string literal, needed for font-lock-syntactic-keywords
      (,(concat (go--regexp-enclose-in-symbol "type") "[[:space:]]+\\([^[:space:]]+\\)") 1 font-lock-type-face) ;; types
      (,(concat (go--regexp-enclose-in-symbol "type") "[[:space:]]+" go-identifier-regexp "[[:space:]]*" go-type-name-regexp) 1 font-lock-type-face) ;; types
-     (,(concat (go--regexp-enclose-in-symbol "var") "[[:space:]]+" go-identifier-regexp "[[:space:]]+" go-type-name-regexp) 1 font-lock-type-face) ;; var type
-     (,(concat (go--regexp-enclose-in-symbol "var") "[[:space:]]+\\(" go-identifier-regexp "\\)") 1 font-lock-builtin-face) ;; var name
-     (,(concat "^[[:space:]]*\\(" go-identifier-regexp "\\)[[:space:]]+" go-type-name-regexp "[[:space:]\n=]") 1 font-lock-builtin-face) ;; var names in group declaration e.g. struct or var ( )
-     (,(concat "^[[:space:]]*" go-type-name-regexp "[[:space:]]*$") 1 font-lock-type-face) ;; embedded anonymous struct
-     (,(concat "\\(" go-identifier-regexp "\\)[[:space:]]*:=") 1 font-lock-builtin-face)
-     (,(concat "\\(" go-identifier-regexp "\\)\\(?:[[:space:]]*,[[:space:]]*" go-identifier-regexp "\\)*" "[[:space:]]*:=") 1 font-lock-builtin-face)
-     (,(concat (go--regexp-enclose-in-symbol "package") "[[:space:]]+\\(" go-identifier-regexp "\\)") 1 font-lock-function-name-face)
      (,(concat "[^[:word:][:multibyte:]]\\[\\([[:digit:]]+\\|\\.\\.\\.\\)?\\]" go-type-name-regexp) 2 font-lock-type-face) ;; Arrays/slices
      (,(concat "\\(" go-identifier-regexp "\\)" "{") 1 font-lock-type-face)
      (,(concat (go--regexp-enclose-in-symbol "map") "\\[[^]]+\\]" go-type-name-regexp) 1 font-lock-type-face) ;; map value type
@@ -282,20 +284,20 @@ For mode=set, all covered lines will have this weight."
      ;; TODO do we actually need this one or isn't it just a function call?
      (,(concat "\\.\\s *(" go-type-name-regexp) 1 font-lock-type-face) ;; Type conversion
      (,(concat (go--regexp-enclose-in-symbol "func") "[[:space:]]+(" go-identifier-regexp "[[:space:]]+" go-type-name-regexp ")") 1 font-lock-type-face) ;; Method receiver
-     (,(concat (go--regexp-enclose-in-symbol "func") "[[:space:]]+([[:space:]]*\\(" go-identifier-regexp "\\)[[:space:]]+" go-type-name-regexp ")") 1 font-lock-constant-face) ;; Method receiver name
-     (,(concat (go--regexp-enclose-in-symbol "func") "[[:space:]]+(" go-identifier-regexp "[[:space:]]+" go-type-name-regexp ")" go-type-name-regexp ")") 1 font-lock-type-face) ;; Method receiver without variable name
+     (,(concat (go--regexp-enclose-in-symbol "func") "[[:space:]]+(" go-type-name-regexp ")") 1 font-lock-type-face) ;; Method receiver without variable name
      ;; Like the original go-mode this also marks compound literal
      ;; fields. There, it was marked as to fix, but I grew quite
      ;; accustomed to it, so it'll stay for now.
      (,(concat "^[[:space:]]*\\(" go-label-regexp "\\)[[:space:]]*:\\(\\S.\\|$\\)") 1 font-lock-constant-face) ;; Labels and compound literal fields
-     (,(concat (go--regexp-enclose-in-symbol "\\(goto\\|break\\|continue\\)") "[[:space:]]*\\(" go-label-regexp "\\)") 2 font-lock-constant-face)
-     (,(concat go-identifier-regexp "[[:space:]]+" go-type-name-regexp "[[:space:],)\n=]") 1 font-lock-type-face)
-     ;(,(concat ")[[:space:]]*" go-type-name-regexp "[[:space:]]*[{\n]") 1 font-lock-type-face)
-     ;(,(concat ")[[:space:]]*([[:space:]]*" go-type-name-regexp "\\(?:[[:space:]]*,[[:space:]]*" go-type-name-regexp "\\)*[[:space:]]*)[[:space:]]*[{\n]") 1 font-lock-type-face)
-     ;(,(concat ",[[:space:]]*" go-type-name-regexp "[[:space:]]*[,)]") 1 font-lock-type-face)
-     ;(,(concat "[(,][[:space:]]*\\(" go-identifier-regexp "\\)[[:space:]]+" go-type-name-regexp) 1 font-lock-builtin-face)
-     ;(,(concat "([[:space:]]*\\(" go-identifier-regexp "\\)[[:space:]]*,[[:space:]]*" go-identifier-regexp) 1 font-lock-builtin-face)
-     )))
+     (,(concat (go--regexp-enclose-in-symbol "\\(goto\\|break\\|continue\\)") "[[:space:]]*\\(" go-label-regexp "\\)") 2 font-lock-constant-face)))) ;; labels in goto/break/continue
+
+(defconst go--font-lock-syntactic-keywords
+  ;; Override syntax property of raw string literal contents, so that
+  ;; backslashes have no special meaning in ``. Used in Emacs 23 or older.
+  '((go--match-raw-string-literal
+     (1 (7 . ?`))
+     (2 (15 . nil))  ;; 15 = "generic string"
+     (3 (7 . ?`)))))
 
 (defvar go-mode-map
   (let ((m (make-sparse-keymap)))
@@ -364,6 +366,18 @@ STOP-AT-STRING is not true, over strings."
   (/= (buffer-size)
       (- (point-max)
          (point-min))))
+
+(defun go--match-raw-string-literal (end)
+  "Search for a raw string literal. Set point to the end of the
+occurence found on success. Returns nil on failure."
+  (when (search-forward "`" end t)
+    (goto-char (match-beginning 0))
+    (if (go-in-string-or-comment-p)
+        (progn (goto-char (match-end 0))
+               (go--match-raw-string-literal end))
+      (when (looking-at "\\(`\\)\\([^`]*\\)\\(`\\)")
+        (goto-char (match-end 0))
+        t))))
 
 (defun go-previous-line-has-dangling-op-p ()
   "Returns non-nil if the current line is a continuation line."
@@ -571,11 +585,16 @@ recommended that you look at goflymake
 
   (set (make-local-variable 'parse-sexp-lookup-properties) t)
   (if (boundp 'syntax-propertize-function)
-      (set (make-local-variable 'syntax-propertize-function) #'go-propertize-syntax))
+      (set (make-local-variable 'syntax-propertize-function) #'go-propertize-syntax)
+    (set (make-local-variable 'font-lock-syntactic-keywords)
+         go--font-lock-syntactic-keywords)
+    (set (make-local-variable 'font-lock-multiline) t))
 
   (set (make-local-variable 'go-dangling-cache) (make-hash-table :test 'eql))
   (add-hook 'before-change-functions (lambda (x y) (setq go-dangling-cache (make-hash-table :test 'eql))) t t)
 
+  ;; ff-find-other-file
+  (setq ff-other-file-alist 'go-other-file-alist)
 
   (setq imenu-generic-expression
         '(("type" "^type *\\([^ \t\n\r\f]*\\)" 1)
@@ -1010,7 +1029,7 @@ description at POINT."
                            "-f"
                            (file-truename (buffer-file-name (go--coverage-origin-buffer)))
                            "-o"
-                           (number-to-string (go--position-bytes (point))))
+                           (number-to-string (go--position-bytes point)))
       (with-current-buffer outbuf
         (split-string (buffer-substring-no-properties (point-min) (point-max)) "\n")))))
 

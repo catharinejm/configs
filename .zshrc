@@ -1,5 +1,5 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/local/bin:$HOME/Code/Vendor/depot_tools:$HOME/Code/Vendor/yagarto-4.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.bin:$HOME/local/bin:/usr/local/texlive/2013/bin/x86_64-darwin:/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
@@ -289,8 +289,3 @@ if [ -f $HOME/.extrarc ]; then
 fi
 
 ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
-
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# Homebrew GitHub API token
-export HOMEBREW_GITHUB_API_TOKEN=78b18043bd1f37122ae840773e777e57abf5b8dc
