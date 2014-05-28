@@ -18,6 +18,11 @@
   (melpa-packages-enable)
   (package-list-packages))
 
+(add-to-list 'load-path "/Users/jon/.emacs.d")
+(autoload 'forth-mode "gforth.el")
+(autoload 'forth-block-mode "gforth.el")
+(add-to-list 'auto-mode-alist '("\\.fs$" . forth-mode))
+
 
 (setq
  backup-by-copying t
@@ -105,12 +110,20 @@
                     scheme-mode
                     scala-mode
                     ruby-mode
-                    js-mode))
+                    js-mode
+                    python-mode))
 
 (mapc (lambda (s) (put s 'scheme-indent-function 'defun))
       (list 'run* 'run 'fresh 'conde 'module 'if))
 ;(setq scheme-program-name "petite")
 (setq scheme-program-name "csi")
+
+(defun run-local-scheme ()
+  (interactive)
+  (let ((scheme-program-name (if (boundp 'scheme-local-program-name)
+                                 scheme-local-program-name
+                               scheme-program-name)))
+    (run-scheme)))
 
 (setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "COMPLETED" "FAILED")))
 (setq org-todo-keyword-faces '(("INPROGRESS" . "yellow") ("COMPLETED" . "green") ("FAILED" . "red")))
