@@ -1,0 +1,8 @@
+.dir-locals.el
+*~
+\#*#
+.#*
+*.o
+.DS_Store
+*.sql.gz
+*.dSYM

@@ -1,5 +1,5 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/local/bin:/usr/local/texlive/2013/bin/x86_64-darwin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.bin:$HOME/local/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
@@ -36,6 +36,11 @@ export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
 
 # Java
 export JAVA_HOME="`/usr/libexec/java_home`"
+if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
+
+# For servicetown development
+export SERVICETOWN_JAVA_OPTS="-Xms8G -Xmx8G -Xss1M -XX:MaxPermSize=1G -XX:ReservedCodeCacheSize=256M -XX:+UseCodeCacheFlushing -XX:+UseG1GC"
+
 # AWS IAM
 export AWS_IAM_HOME=/usr/local/opt/aws-iam-tools/libexec
 export AWS_CREDENTIAL_FILE=$HOME/.aws-credentials-master

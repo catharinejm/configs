@@ -79,7 +79,7 @@
 (eval-after-load 'cider-repl
   '(progn
      (add-hook 'cider-repl-mode-hook (lambda () (paredit-mode +1)))
-     (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+     (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
      (define-key cider-repl-mode-map (kbd "RET") (lambda ()
                                               (interactive)
                                               (if (eobp)
@@ -87,12 +87,17 @@
                                                 (flet ((cider-repl--input-complete-p (&rest args) nil))
                                                   (funcall 'cider-repl-return)))))))
 
+(setq-default cider-repl-history-file "~/.cider-repl-history")
+
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook (lambda ()
                                (paredit-mode +1)))
 (add-hook 'c-mode-hook (lambda ()
                          (setq comment-start "// "
                                comment-end "")))
+
+(eval-after-load 'haskell-mode
+  (add-hook 'haskell-mode-hook (lambda () (turn-on-haskell-indentation))))
 
 
 
@@ -188,7 +193,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes (quote ("43f70787edac4d896ec8e14579e52501665e61d5dc02de3c237f82fd5d8e0a6a" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(go-fontify-function-calls t)
- '(safe-local-variable-values (quote ((ffip-additional-patterns "*.conf" "*.dist" "routes" "*.ejs") (ffip-additional-patterns "*.conf" "*.dist" "routes" (\, "*.ejs")) (ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
+ '(safe-local-variable-values (quote ((scheme-program-name . "./lisp") (ffip-additional-patterns "*.c" "*.h") (ffip-additional-patterns ".c" ".h") (tab-indent-mode . t) (ffip-additional-patterns "*.conf" "*.dist" "routes" "*.ejs") (ffip-additional-patterns "*.conf" "*.dist" "routes" (\, "*.ejs")) (ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
  '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
