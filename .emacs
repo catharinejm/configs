@@ -37,9 +37,9 @@
 (setenv "SCHEMEHEAPDIRS" "/Users/jon/local/lib/csv%v/%m")
 (setenv "NODE_PATH" "/usr/local/opt/node/lib")
 
-;(load-theme 'monokai t)
-(setq solarized-broken-srgb nil)
-(load-theme 'solarized-dark t)
+(load-theme 'monokai t)
+;(setq solarized-broken-srgb nil)
+;(load-theme 'solarized-dark t)
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -191,14 +191,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("43f70787edac4d896ec8e14579e52501665e61d5dc02de3c237f82fd5d8e0a6a" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(custom-safe-themes (quote ("60f04e478dedc16397353fb9f33f0d895ea3dab4f581307fbf0aa2f07e658a40" "43f70787edac4d896ec8e14579e52501665e61d5dc02de3c237f82fd5d8e0a6a" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(go-fontify-function-calls t)
- '(safe-local-variable-values (quote ((scheme-program-name . "./lisp") (ffip-additional-patterns "*.c" "*.h") (ffip-additional-patterns ".c" ".h") (tab-indent-mode . t) (ffip-additional-patterns "*.conf" "*.dist" "routes" "*.ejs") (ffip-additional-patterns "*.conf" "*.dist" "routes" (\, "*.ejs")) (ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
+ '(safe-local-variable-values (quote ((cider-lein-parameters . "repl") (scheme-program-name . "./lisp") (ffip-additional-patterns "*.c" "*.h") (ffip-additional-patterns ".c" ".h") (tab-indent-mode . t) (ffip-additional-patterns "*.conf" "*.dist" "routes" "*.ejs") (ffip-additional-patterns "*.conf" "*.dist" "routes" (\, "*.ejs")) (ffip-limit 2048) (ffip-exclude-dirs "target" "node_modules" ".mocha" "modules") (ffip-additional-patterns "*.conf" "*.dist" "routes") (ffip-exclude-dirs "target" "node_modules" ".mocha"))))
  '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "apple" :family "Monaco"))))
  '(font-lock-builtin-face ((t (:foreground "#b58900" :weight bold))))
  '(italic ((t (:slant normal)))))
