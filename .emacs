@@ -72,6 +72,8 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+(require 'clojure-mode-extra-font-locking)
+
 (eval-after-load 'clojure-mode
   '(progn
      (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))))
@@ -201,5 +203,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "apple" :family "Monaco"))))
- '(font-lock-builtin-face ((t (:foreground "#b58900" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "#FD971F" :weight bold))))
  '(italic ((t (:slant normal)))))
