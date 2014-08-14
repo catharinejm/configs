@@ -197,16 +197,6 @@ function clj {
   fi
 }
 
-# function cljrb {
-#   rvm jruby
-#   local require_paths="`echo $CLOJURE_CLASSPATH | sed -E 's/(^|:)/ -r/g'`"
-#   if [[ $ARGC -eq 0 ]]; then
-#     irb `echo -n $require_paths | xargs`
-#   else
-#     ruby `echo -n $require_paths | xargs` $*
-#   fi
-# }
-
 git_prompt_info() {
   local ref=$(git symbolic-ref HEAD 2> /dev/null)
   if [[ -n $ref ]]; then
@@ -279,15 +269,11 @@ alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
 alias bi="bundle install"
 alias emacs="emacs -nw"
-#alias rvmrc="source ./.rvmrc"
 alias rc="./script/rails console"
 alias rs="./script/rails server"
 alias rdb="./script/rails dbconsole"
 
-# rvm
-if [[ -s $HOME/.rvm/scripts/rvm ]]; then
-  source $HOME/.rvm/scripts/rvm
-fi
+eval "$(rbenv init -)"
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
