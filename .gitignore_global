@@ -6,3 +6,4 @@
 .DS_Store
 *.sql.gz
 *.dSYM
+.nave-version

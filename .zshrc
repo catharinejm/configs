@@ -1,10 +1,12 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/local/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.bin:$HOME/local/bin:$HOME/local/opt/gcc-arm-none-eabi/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
 export EDITOR=vim
-export TERM=xterm-256color
+if [[ -z "$EMACS" ]]; then
+    export TERM=xterm-256color
+fi
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -24,19 +26,22 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export NODE_PATH=/usr/local/opt/node/lib
 # For GO:
-export GOROOT=`brew --prefix go`/libexec
-export GOBIN=/usr/local/bin
-export GOARCH=amd64
-export GOOS=darwin
-export GOPATH=$HOME/go
+# export GOROOT=`brew --prefix go`/libexec
+# export GOBIN=/usr/local/bin
+# export GOARCH=amd64
+# export GOOS=darwin
+# export GOPATH=$HOME/go
 # END: EXPORTS
 
 # Chez Scheme
 export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
 
+# Chicken Scheme
+export CHICKEN_INSTALL_PREFIX="$HOME/local"
+
 # Java
-export JAVA_HOME="`/usr/libexec/java_home`"
-if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
+# export JAVA_HOME="`/usr/libexec/java_home`"
+# if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
 
 # For servicetown development
 export SERVICETOWN_JAVA_OPTS="-Xms8G -Xmx8G -Xss1M -XX:MaxPermSize=1G -XX:ReservedCodeCacheSize=256M -XX:+UseCodeCacheFlushing -XX:+UseG1GC"
@@ -235,7 +240,7 @@ precmd() {
 
 function avr-man {
   command avr-man -M $HOME/local/share/man $@
-}
+pp}
 
 function mandelbrot {
    local lines columns colour a b p q i pnew
@@ -253,9 +258,12 @@ function mandelbrot {
 }
 
 # ALIASES
-alias ls='ls -G'
+if [[ "`uname`" == Linux ]]; then
+    alias ls='ls --color' 
+else
+    alias ls='ls -G'
+fi
 alias ll='ls -hl'
-alias tar='nocorrect /usr/bin/tar'
 alias sudo='nocorrect sudo'
 alias ri='ri -Tf ansi'
 alias rtasks='rake --tasks'
@@ -273,7 +281,14 @@ alias rc="./script/rails console"
 alias rs="./script/rails server"
 alias rdb="./script/rails dbconsole"
 
+alias jl="rlwrap -a JLinkExe"
+alias jlg=JLinkGDBServer
+
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+# Cabal
+export PATH="$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.10.1/bin:$PATH"
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
