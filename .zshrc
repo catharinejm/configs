@@ -1,5 +1,5 @@
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/local/bin:$HOME/local/opt/gcc-arm-none-eabi/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
@@ -284,11 +284,14 @@ alias rdb="./script/rails dbconsole"
 alias jl="rlwrap -a JLinkExe"
 alias jlg=JLinkGDBServer
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 # Cabal
-export PATH="$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.10.1/bin:$PATH"
+export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.2/bin:$PATH"
+
+# Scala
+export PATH="$HOME/.local/opt/scala-2.11.6/bin:$PATH"
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
