@@ -3,7 +3,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export EDITOR=vim
+export EDITOR=emacs
 if [[ -z "$EMACS" ]]; then
     export TERM=xterm-256color
 fi
@@ -230,7 +230,7 @@ project_name_color() {
 }
 
 set_prompt() {
-  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
+  export PROMPT=$'[%{\e[0;34m%}%M%{\e[0m%}]%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
   # export RPROMPT="$(git_prompt_info)"
 }
 
