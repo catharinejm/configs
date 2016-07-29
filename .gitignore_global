@@ -7,3 +7,5 @@
 *.sql.gz
 *.dSYM
 .nave-version
+.ensime*
+.sbtopts
