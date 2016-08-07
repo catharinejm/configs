@@ -1,9 +1,8 @@
 export ARCHFLAGS='-arch x86_64'
 export PATH=$HOME/.local/bin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
-export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export EDITOR=emacs
+export EDITOR='emacs -nw'
 if [[ -z "$EMACS" ]]; then
     export TERM=xterm-256color
 fi
@@ -16,21 +15,23 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL=
-export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
-export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
-export CLOJURESCRIPT_HOME=$HOME/Code/Vendor/clojurescript
-export GRADLE_HOME=/opt/local/share/java/gradle
-export ACTIVEMQ_HOME=/usr/local/apache-activemq
-export PGDATA=/usr/local/var/postgres
+# export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
+# export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
+# export CLOJURESCRIPT_HOME=$HOME/Code/Vendor/clojurescript
+# export GRADLE_HOME=/opt/local/share/java/gradle
+# export ACTIVEMQ_HOME=/usr/local/apache-activemq
+# export PGDATA=/usr/local/var/postgres
 export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
+export MAKEOPTS="-j12"
 export NODE_PATH=/usr/local/opt/node/lib
 # For GO:
 # export GOROOT=`brew --prefix go`/libexec
 # export GOBIN=/usr/local/bin
 # export GOARCH=amd64
 # export GOOS=darwin
-# export GOPATH=$HOME/go
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$PATH
 # END: EXPORTS
 
 # Chez Scheme
@@ -40,7 +41,7 @@ export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
 export CHICKEN_INSTALL_PREFIX="$HOME/local"
 
 # Java
-# export JAVA_HOME="`/usr/libexec/java_home`"
+# export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s|bin/java||")"
 # if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
 
 # For servicetown development
@@ -240,7 +241,7 @@ precmd() {
 
 function avr-man {
   command avr-man -M $HOME/local/share/man $@
-pp}
+}
 
 function mandelbrot {
    local lines columns colour a b p q i pnew
@@ -270,6 +271,7 @@ alias rtasks='rake --tasks'
 alias sp='./script/spec -cfs'
 alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
 alias safari='open -a Safari'
+alias grep='grep --color=auto' 
 alias gvim='mvim -p &> /dev/null'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
@@ -277,18 +279,21 @@ alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
 alias bi="bundle install"
 alias emacs="emacs -nw"
-alias rc="./script/rails console"
-alias rs="./script/rails server"
-alias rdb="./script/rails dbconsole"
+# alias rc="./script/rails console"
+# alias rs="./script/rails server"
+# alias rdb="./script/rails dbconsole"
 
 alias jl="rlwrap -a JLinkExe"
 alias jlg=JLinkGDBServer
 
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
+alias ghc="stack ghc"
+alias ghci="stack exec ghci"
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # Cabal
-export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.2/bin:$PATH"
+export PATH="$HOME/.cabal/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 # Scala
 export PATH="$HOME/.local/opt/scala-2.11.6/bin:$PATH"
@@ -298,3 +303,16 @@ if [ -f $HOME/.extrarc ]; then
 fi
 
 ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+### For rust. Super lame.
+rust_lib_path=$HOME/.local/lib
+alias cargo="env LD_LIBRARY_PATH=${rust_lib_path} cargo"
+alias rustdoc="env LD_LIBRARY_PATH=${rust_lib_path} rustdoc"
+alias rustc="env LD_LIBRARY_PATH=${rust_lib_path} rustc"
+alias rust-gdb="env LD_LIBRARY_PATH=${rust_lib_path} rust-gdb"
+
+# Blender
+export PATH="$HOME/.local/opt/blender:$PATH"

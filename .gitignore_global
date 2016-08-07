@@ -9,3 +9,6 @@
 .nave-version
 .ensime*
 .sbtopts
+.cabal-sandbox
+cabal.sandbox.config
+.stack-work

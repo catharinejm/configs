@@ -2,7 +2,7 @@ require 'irb/completion'
 
 IRB.conf[:IRB_RC] = proc do |conf|
   name = "irb(#{RUBY_VERSION}): "
-  name = "rails: " if $0 == 'irb' && ENV['RAILS_ENV'] 
+  name = "rails(#{Rails.version}, ruby #{RUBY_VERSION}): " if defined?(Rails)
   leader = " " * (name.length - 3)
   conf.prompt_i = "#{name}"
   conf.prompt_s = leader + '?> '
