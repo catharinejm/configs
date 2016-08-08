@@ -1,10 +1,14 @@
+eval $(/usr/libexec/path_helper -s)
+
 export ARCHFLAGS='-arch x86_64'
-export PATH=$HOME/.bin:$HOME/local/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cabal/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export EDITOR=vim
-export TERM=xterm-256color
+export EDITOR='emacs -nw'
+if [[ ! $EMACS ]]; then
+    export TERM=xterm-256color
+fi
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -24,11 +28,12 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export NODE_PATH=/usr/local/opt/node/lib
 # For GO:
-export GOROOT=`brew --prefix go`/libexec
-export GOBIN=/usr/local/bin
-export GOARCH=amd64
-export GOOS=darwin
-export GOPATH=$HOME/go
+# export GOROOT=`brew --prefix go`/libexec
+# export GOBIN=/usr/local/bin
+# export GOARCH=amd64
+# export GOOS=darwin
+export GOPATH=$HOME/.go
+export PATH="$GOPATH/bin:$PATH"
 # END: EXPORTS
 
 # Chez Scheme
@@ -36,14 +41,13 @@ export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
 
 # Java
 export JAVA_HOME="`/usr/libexec/java_home`"
-if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
 
 # For servicetown development
 export SERVICETOWN_JAVA_OPTS="-Xms8G -Xmx8G -Xss1M -XX:MaxPermSize=1G -XX:ReservedCodeCacheSize=256M -XX:+UseCodeCacheFlushing -XX:+UseG1GC"
 
 # AWS IAM
-export AWS_IAM_HOME=/usr/local/opt/aws-iam-tools/libexec
-export AWS_CREDENTIAL_FILE=$HOME/.aws-credentials-master
+# export AWS_IAM_HOME=/usr/local/opt/aws-iam-tools/libexec
+# export AWS_CREDENTIAL_FILE=$HOME/.aws-credentials-master
 
 # CLANG WITH LIBCXX
 # export CXX="clang++-3.3"
@@ -280,3 +284,15 @@ if [ -f $HOME/.extrarc ]; then
 fi
 
 ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
+
+# OPAM
+if [[ `which opam` ]]; then
+    eval $(opam config env)
+fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ $NAVEPATH ]; then
+    export PATH="$NAVEPATH:$PATH"
+fi

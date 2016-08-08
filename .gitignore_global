@@ -6,3 +6,11 @@
 .DS_Store
 *.sql.gz
 *.dSYM
+.nave-version
+.ensime
+.ensime_cache/
+.cabal-sandbox
+cabal.sandbox.config
+target/
+.sbtopts
+.stack-work
