@@ -3,7 +3,9 @@ export PATH=$HOME/.local/bin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_COLOR='3;33'
 export EDITOR='emacs -nw'
-if [[ -z "$EMACS" ]]; then
+if [[ "$EMACS" ]]; then
+    unset zle_bracketed_paste
+else
     export TERM=xterm-256color
 fi
 export LSCOLORS=gxfxcxdxbxegedabagacad
@@ -289,8 +291,8 @@ alias jlg=JLinkGDBServer
 alias ghc="stack ghc"
 alias ghci="stack exec ghci"
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 # Cabal
 export PATH="$HOME/.cabal/bin:/opt/ghc/7.10.3/bin:$PATH"
