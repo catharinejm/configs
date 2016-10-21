@@ -284,6 +284,7 @@ alias emacs="emacs -nw"
 # alias rc="./script/rails console"
 # alias rs="./script/rails server"
 # alias rdb="./script/rails dbconsole"
+alias scala="nix-shell -p scala --command scala"
 
 alias jl="rlwrap -a JLinkExe"
 alias jlg=JLinkGDBServer
@@ -293,12 +294,6 @@ alias ghci="stack exec ghci"
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
-
-# Cabal
-export PATH="$HOME/.cabal/bin:/opt/ghc/7.10.3/bin:$PATH"
-
-# Scala
-export PATH="$HOME/.local/opt/scala-2.11.6/bin:$PATH"
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
