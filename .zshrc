@@ -1,6 +1,5 @@
 export ARCHFLAGS='-arch x86_64'
 export PATH=$HOME/.local/bin:$PATH
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig"
 export GREP_COLOR='3;33'
 export EDITOR='emacs -nw'
 if [[ "$EMACS" ]]; then
@@ -17,21 +16,10 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL=
-# export FL_APP_BUILD=/Developer/SDKs/Flex3/bin/mxmlc
-# export CLOJURE_CLASSPATH=$HOME/Java/lib/clojure/clojure.jar:$HOME/Java/lib/clojure-contrib/clojure-contrib.jar
-# export CLOJURESCRIPT_HOME=$HOME/Code/Vendor/clojurescript
-# export GRADLE_HOME=/opt/local/share/java/gradle
-# export ACTIVEMQ_HOME=/usr/local/apache-activemq
-# export PGDATA=/usr/local/var/postgres
 export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
-export MAKEOPTS="-j12"
-export NODE_PATH=/usr/local/opt/node/lib
+export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 # For GO:
-# export GOROOT=`brew --prefix go`/libexec
-# export GOBIN=/usr/local/bin
-# export GOARCH=amd64
-# export GOOS=darwin
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$PATH
 # END: EXPORTS
@@ -41,10 +29,6 @@ export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
 
 # Chicken Scheme
 export CHICKEN_INSTALL_PREFIX="$HOME/local"
-
-# Java
-# export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s|bin/java||")"
-# if [ "$JAVA_HOME" ]; then PATH="$PATH:$JAVA_HOME/bin"; fi
 
 # For servicetown development
 export SERVICETOWN_JAVA_OPTS="-Xms8G -Xmx8G -Xss1M -XX:MaxPermSize=1G -XX:ReservedCodeCacheSize=256M -XX:+UseCodeCacheFlushing -XX:+UseG1GC"
@@ -66,8 +50,8 @@ bindkey -e
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
-setopt APPEND_HISTORY 
-setopt INC_APPEND_HISTORY 
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 
@@ -77,12 +61,12 @@ setopt complete_in_word         # Not just at the end
 setopt always_to_end            # When complete from middle, move cursor
 setopt nohup										# In general, we don't kill background jobs upon logging out
 
-autoload -U compinit && compinit                                                                                       
+autoload -U compinit && compinit
 zmodload -i zsh/complist
 
 zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
 zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:*' enable git #svn cvs 
+zstyle ':vcs_info:*' enable git #svn cvs
 
 # Enable completion caching, use rehash to clear
 zstyle ':completion::complete:*' use-cache on
@@ -107,7 +91,7 @@ zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 
 # insert all expansions for expand completer
 # zstyle ':completion:*:expand:*' tag-order all-expansions
- 
+
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -121,7 +105,7 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
- 
+
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
@@ -135,11 +119,11 @@ zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-compl
 
 # Force 'sudo zsh' to start root as a logging shell to avoid problems with environment clashes:
 function sudo {
-	if [[ $1 = "zsh" ]]; then
+  if [[ $1 = "zsh" ]]; then
         command sudo /opt/local/bin/zsh -l
-	else
+  else
         command sudo "$@"
-	fi
+  fi
 }
 
 function proxy {
@@ -165,12 +149,12 @@ function vack {
 function diffx {
   echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx --all
 }
-     
+
 function reload! {
   echo -n Restarting Rails server...
   if touch tmp/restart.txt 2> /dev/null; then
     echo
-  else 
+  else
     echo 'FAILED!'
     echo Ensure you\'re at the root of a Rails project with a tmp/ directory.
   fi
@@ -261,36 +245,26 @@ function mandelbrot {
 }
 
 # ALIASES
-if [[ "`uname`" == Linux ]]; then
-    alias ls='ls --color' 
-else
-    alias ls='ls -G'
-fi
+alias ls='ls --color'
 alias ll='ls -hl'
-alias sudo='nocorrect sudo'
-alias ri='ri -Tf ansi'
-alias rtasks='rake --tasks'
-alias sp='./script/spec -cfs'
-alias makepasswd='makepasswd --count 5 --chars=8 --string='\''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%^&*()'\'
-alias safari='open -a Safari'
-alias grep='grep --color=auto' 
-alias gvim='mvim -p &> /dev/null'
+alias grep='grep --color=auto'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
-alias ngs="java -cp $CLOJURE_CLASSPATH:$HOME/Java/lib/vimclojure/build/vimclojure.jar:.:./classes com.martiansoftware.nailgun.NGServer 127.0.0.1"
-alias ng=/Users/jon/Java/lib/vimclojure/ng
 alias be="bundle exec"
 alias bi="bundle install"
 alias emacs="emacs -nw"
-# alias rc="./script/rails console"
-# alias rs="./script/rails server"
-# alias rdb="./script/rails dbconsole"
-alias scala="nix-shell -p scala --command scala"
 
 alias jl="rlwrap -a JLinkExe"
 alias jlg=JLinkGDBServer
 
 alias ghc="stack ghc"
 alias ghci="stack exec ghci"
+function scala {
+    local args=""
+    for arg in "$@"; do
+        args+=" '$arg'"
+    done
+    nix-shell -p scala --run "scala $args"
+}
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
@@ -300,9 +274,6 @@ if [ -f $HOME/.extrarc ]; then
 fi
 
 ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 ### For rust. Super lame.
 rust_lib_path=$HOME/.local/lib
