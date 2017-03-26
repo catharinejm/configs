@@ -32,3 +32,5 @@
   ch = cherry -v origin
 [push]
 	default = upstream
+[url "git@github.com:"]
+	insteadOf = https://github.com/

@@ -289,8 +289,6 @@ if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
 
-ssh-add $HOME/.ssh/id_dsa > /dev/null 2>&1 # Add id_rsa key
-
 ### For rust. Super lame.
 rust_lib_path=$HOME/.local/lib
 alias cargo="env LD_LIBRARY_PATH=${rust_lib_path} cargo"
@@ -301,5 +299,6 @@ alias rust-gdb="env LD_LIBRARY_PATH=${rust_lib_path} rust-gdb"
 # Blender
 export PATH="$HOME/.local/opt/blender:$PATH"
 
-# nix-shell
-export PATH="$HOME/.nix-profile/bin:$PATH"
+if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
+    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
