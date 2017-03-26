@@ -266,6 +266,22 @@ function scala {
     nix-shell -p scala --run "scala $args"
 }
 
+function cdroot {
+    local p=$(realpath .)
+    while [ true ]; do
+        if ls "$p/.git" >/dev/null 2>&1; then
+            echo moving to "$p"
+            cd "$p"
+            break
+        elif [[ "$p" == "$HOME" || "$p" == "/" ]]; then
+            echo could not find a .git above the current directory
+            break
+        else
+            p=$(realpath "$p/..")
+        fi
+    done
+}
+
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 
@@ -284,3 +300,6 @@ alias rust-gdb="env LD_LIBRARY_PATH=${rust_lib_path} rust-gdb"
 
 # Blender
 export PATH="$HOME/.local/opt/blender:$PATH"
+
+# nix-shell
+export PATH="$HOME/.nix-profile/bin:$PATH"
