@@ -268,10 +268,15 @@ function scala {
 
 function cdroot {
     local p=$(realpath .)
+    local startpath="$p"
     while [ true ]; do
         if ls "$p/.git" >/dev/null 2>&1; then
-            echo moving to "$p"
-            cd "$p"
+            if [ "$p" = "$startpath" ]; then
+                echo already at root of git repository
+            else
+                echo moving to "$p"
+                cd "$p"
+            fi
             break
         elif [[ "$p" == "$HOME" || "$p" == "/" ]]; then
             echo could not find a .git above the current directory
