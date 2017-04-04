@@ -267,15 +267,23 @@ function scala {
 }
 
 function cdroot {
+    local subpath="$1"
     local p=$(realpath .)
     local startpath="$p"
     while [ true ]; do
         if ls "$p/.git" >/dev/null 2>&1; then
-            if [ "$p" = "$startpath" ]; then
-                echo already at root of git repository
+            if [[ "$p" = "$startpath" ]]; then
+                if [[ -z "$subpath" ]]; then
+                    echo already at root of git repository
+                else
+                    local newpath=$(realpath "$p/$subpath")
+                    echo moving to "$newpath"
+                    cd "$newpath"
+                fi
             else
-                echo moving to "$p"
-                cd "$p"
+                local newpath=$(realpath "$p/$subpath")
+                echo moving to "$newpath"
+                cd "$newpath"
             fi
             break
         elif [[ "$p" == "$HOME" || "$p" == "/" ]]; then
