@@ -258,6 +258,7 @@ alias jlg=JLinkGDBServer
 
 alias ghc="stack ghc"
 alias ghci="stack exec ghci"
+
 function scala {
     local args=""
     for arg in "$@"; do
@@ -295,6 +296,27 @@ function cdroot {
     done
 }
 
+function memhogs {
+    local min_usage=5
+    if [[ ! -z "$1" ]]; then
+        min_usage=$[$1]
+    fi
+
+    echo "Processes using ${min_usage}% memory or more:"
+    echo
+
+    local total=0
+    ps aux | tail -n+2 | while read ps_line; do
+        local mem=$(awk '{print $4}' <<< "$ps_line")
+        if [[ $mem -ge $min_usage ]]; then
+            echo $ps_line
+            total=$[total+mem]
+        fi
+    done
+    echo
+    echo 'Total memory used by hogs (%):' $total
+}
+
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 
@@ -315,3 +337,6 @@ export PATH="$HOME/.local/opt/blender:$PATH"
 if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
     source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+
+# OPAM configuration
+. /home/jon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
