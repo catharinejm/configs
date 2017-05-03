@@ -306,7 +306,7 @@ function memhogs {
     echo
 
     local total=0
-    ps aux | tail -n+2 | while read ps_line; do
+    ps auxww | tail -n+2 | while read ps_line; do
         local mem=$(awk '{print $4}' <<< "$ps_line")
         if [[ $mem -ge $min_usage ]]; then
             echo $ps_line
