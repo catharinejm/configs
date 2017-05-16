@@ -317,6 +317,10 @@ function memhogs {
     echo 'Total memory used by hogs (%):' $total
 }
 
+function docker_image_cleanup {
+    docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
+}
+
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 
