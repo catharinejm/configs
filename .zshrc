@@ -328,12 +328,8 @@ if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
 fi
 
-### For rust. Super lame.
-rust_lib_path=$HOME/.local/lib
-alias cargo="env LD_LIBRARY_PATH=${rust_lib_path} cargo"
-alias rustdoc="env LD_LIBRARY_PATH=${rust_lib_path} rustdoc"
-alias rustc="env LD_LIBRARY_PATH=${rust_lib_path} rustc"
-alias rust-gdb="env LD_LIBRARY_PATH=${rust_lib_path} rust-gdb"
+### Rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Blender
 export PATH="$HOME/.local/opt/blender:$PATH"
