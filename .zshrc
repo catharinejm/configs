@@ -2,7 +2,7 @@ export ARCHFLAGS='-arch x86_64'
 export PATH=$HOME/.local/bin:$PATH
 export GREP_COLOR='3;33'
 export EDITOR='emacs -nw'
-if [[ "$EMACS" ]]; then
+if [[ "$EMACS" || "$INSIDE_EMACS" ]]; then
     unset zle_bracketed_paste
 else
     export TERM=xterm-256color
