@@ -259,14 +259,6 @@ alias jlg=JLinkGDBServer
 alias ghc="stack ghc"
 alias ghci="stack exec ghci"
 
-function scala {
-    local args=""
-    for arg in "$@"; do
-        args+=" '$arg'"
-    done
-    nix-shell -p scala --run "scala $args"
-}
-
 function cdroot {
     local subpath="$1"
     local p=$(realpath .)
