@@ -260,32 +260,24 @@ alias ghc="stack ghc"
 alias ghci="stack exec ghci"
 
 function cdroot {
+    if ! which git; then
+        echo "**** git must be installed to use cdroot"
+        return 1
+    fi
+
+    if ! git rev-parse 2>/dev/null; then
+        echo "**** Not in a git repository"
+        return 1
+    fi
+
     local subpath="$1"
-    local p=$(realpath .)
-    local startpath="$p"
-    while [ true ]; do
-        if ls "$p/.git" >/dev/null 2>&1; then
-            if [[ "$p" = "$startpath" ]]; then
-                if [[ -z "$subpath" ]]; then
-                    echo already at root of git repository
-                else
-                    local newpath=$(realpath "$p/$subpath")
-                    echo moving to "$newpath"
-                    cd "$newpath"
-                fi
-            else
-                local newpath=$(realpath "$p/$subpath")
-                echo moving to "$newpath"
-                cd "$newpath"
-            fi
-            break
-        elif [[ "$p" == "$HOME" || "$p" == "/" ]]; then
-            echo could not find a .git above the current directory
-            break
-        else
-            p=$(realpath "$p/..")
-        fi
-    done
+    local updirs="$(git rev-parse --show-cdup)"
+    if [[ -z "$updirs" ]]; then
+        updirs="."
+    fi
+    local newpath="$(realpath -s "$PWD/$updirs/$subpath")"
+    echo "moving to $newpath"
+    cd "$newpath"
 }
 
 function memhogs {
