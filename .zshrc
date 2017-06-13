@@ -317,6 +317,10 @@ function memhogs {
     echo 'Total memory used by hogs (%):' $total
 }
 
+function docker_container_cleanup {
+    docker ps -a | tail -n+2 | awk '{print $1}' | xargs docker rm
+}
+
 function docker_image_cleanup {
     docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
 }
