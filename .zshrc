@@ -260,12 +260,12 @@ alias ghc="stack ghc"
 alias ghci="stack exec ghci"
 
 function cdroot {
-    if ! which git; then
+    if ! which git >/dev/null 2>&1; then
         echo "**** git must be installed to use cdroot"
         return 1
     fi
 
-    if ! git rev-parse 2>/dev/null; then
+    if ! git rev-parse >/dev/null 2>&1; then
         echo "**** Not in a git repository"
         return 1
     fi
@@ -320,11 +320,15 @@ fi
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Blender
-export PATH="$HOME/.local/opt/blender:$PATH"
+# export PATH="$HOME/.local/opt/blender:$PATH"
 
-if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
-    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
+# if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
+#     source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+# fi
+
+# nix-shim
+export NIX_SHIM_ROOT="$HOME/.nix-shim"
+export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # OPAM configuration
 . /home/jon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
