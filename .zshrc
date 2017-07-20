@@ -2,7 +2,7 @@ export ARCHFLAGS='-arch x86_64'
 export PATH=$HOME/.local/bin:$PATH
 export GREP_COLOR='3;33'
 export EDITOR='emacs -nw'
-if [[ "$EMACS" || "$INSIDE_EMACS" ]]; then
+if [[ ! -z "$EMACS" || ! -z "$INSIDE_EMACS" ]]; then
     unset zle_bracketed_paste
 else
     export TERM=xterm-256color
@@ -325,6 +325,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
 #     source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 # fi
+
+# nix-shim
+export NIX_SHIM_ROOT="$HOME/.nix-shim"
+export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # nix-shim
 export NIX_SHIM_ROOT="$HOME/.nix-shim"
