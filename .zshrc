@@ -330,9 +330,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export NIX_SHIM_ROOT="$HOME/.nix-shim"
 export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
-# nix-shim
-export NIX_SHIM_ROOT="$HOME/.nix-shim"
-export PATH="$NIX_SHIM_ROOT/bin:$PATH"
-
 # OPAM configuration
 . /home/jon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
