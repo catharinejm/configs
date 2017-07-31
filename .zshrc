@@ -273,6 +273,10 @@ function cdroot {
     local subpath="$1"
     local updirs="$(git rev-parse --show-cdup)"
     if [[ -z "$updirs" ]]; then
+        if [[ -z "$subpath" ]]; then
+            echo "Already at repository root."
+            return 0
+        fi
         updirs="."
     fi
     local newpath="$(realpath -s "$PWD/$updirs/$subpath")"
