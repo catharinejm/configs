@@ -127,22 +127,6 @@ function sudo {
   fi
 }
 
-function proxy {
-  if [ ! -d $HOME/Code/Relevance ]; then
-    echo "The Relevance TrueCrypt volume must be mounted first!"
-  else
-    if [ "$1" = "ias" ]; then
-      export JUMPHOST_HOSTNAME=iasjump.icsl.net
-      export JUMPHOST_PORT=2222
-      echo "Connecting to iasjump.icsl.net:2222..."
-    else
-      export JUMPHOST_HOSTNAME=i2jump.icsl.net
-      export JUMPHOST_PORT=22
-      echo "Connecting to i2jump.icsl.net:22..."
-    fi
-    $HOME/Code/Relevance/vzb-jumphost-proxy/proxy.sh &> /dev/null &
-  fi
-}
 function vack {
   mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
@@ -218,7 +202,7 @@ project_name_color() {
 }
 
 set_prompt() {
-  export PROMPT=$'[%{\e[0;34m%}%M%{\e[0m%}]%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
+  export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}'$(git_prompt_info)$(git_user_initials)'/ '
   # export RPROMPT="$(git_prompt_info)"
 }
 
@@ -338,3 +322,5 @@ export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # OPAM configuration
 . /home/jon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
