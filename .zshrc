@@ -18,7 +18,8 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL=
 export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
-export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
+# export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
+export MAKEOPTS="-j$(sysctl -a | grep machdep.cpu | grep thread_count | cut -d' ' -f2)"
 # For GO:
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$PATH
@@ -245,7 +246,8 @@ function mandelbrot {
 }
 
 # ALIASES
-alias ls='ls --color'
+# alias ls='ls --color'
+alias ls='ls -G'
 alias ll='ls -hl'
 alias grep='grep --color=auto'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
