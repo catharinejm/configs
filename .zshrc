@@ -20,8 +20,9 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 # For GO:
-export GOPATH=$HOME/.go
-export PATH=$GOPATH/bin:$PATH
+export GOROOT=$HOME/.go
+export GOPATH=$HOME/.go/bin
+export PATH=$GOPATH:$PATH
 # END: EXPORTS
 
 # Chez Scheme
