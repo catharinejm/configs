@@ -1,4 +1,9 @@
 export ARCHFLAGS='-arch x86_64'
+for d in $HOME/.local/opt/**; do
+    if [[ -d "$d/bin" ]]; then
+        PATH="$d/bin:$PATH"
+    fi
+done
 export PATH=$HOME/.local/bin:$PATH
 export GREP_COLOR='3;33'
 export EDITOR='emacs -nw'
@@ -20,16 +25,16 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 # For GO:
-export GOROOT=$HOME/.go
-export GOPATH=$HOME/.go/bin
-export PATH=$GOPATH:$PATH
+export GOROOT=/usr/lib/go-1.9
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # END: EXPORTS
 
 # Chez Scheme
-export SCHEMEHEAPDIRS="$HOME/local/lib/csv%v/%m"
+export SCHEMEHEAPDIRS="$HOME/.local/lib/csv%v/%m"
 
 # Chicken Scheme
-export CHICKEN_INSTALL_PREFIX="$HOME/local"
+export CHICKEN_INSTALL_PREFIX="$HOME/.local"
 
 # For servicetown development
 export SERVICETOWN_JAVA_OPTS="-Xms8G -Xmx8G -Xss1M -XX:MaxPermSize=1G -XX:ReservedCodeCacheSize=256M -XX:+UseCodeCacheFlushing -XX:+UseG1GC"
@@ -227,7 +232,7 @@ precmd() {
 }
 
 function avr-man {
-  command avr-man -M $HOME/local/share/man $@
+  command avr-man -M $HOME/.local/share/man $@
 }
 
 function mandelbrot {
