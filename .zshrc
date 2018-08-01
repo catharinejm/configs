@@ -25,7 +25,7 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 # For GO:
-export GOROOT=/usr/lib/go-1.9
+export GOROOT=/usr/lib/go-1.10
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # END: EXPORTS
@@ -323,8 +323,10 @@ function docker_image_cleanup {
     docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
 }
 
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
+if [ -e "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 if [ -f $HOME/.extrarc ]; then
   source $HOME/.extrarc
