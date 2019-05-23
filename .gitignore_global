@@ -14,4 +14,4 @@ cabal.sandbox.config
 .stack-work
 target/
 node_modules/
-.liquid
+.liquid/
