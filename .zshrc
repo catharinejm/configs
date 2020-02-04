@@ -25,9 +25,9 @@ export WORDCHARS=
 #export WORDCHARS=${WORDCHARS//[&=\/;!#%\{_-]}
 export MAKEOPTS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 # For GO:
-export GOROOT=/usr/lib/go-1.10
+# export GOROOT=/usr/lib/go-1.10
 export GOPATH=$HOME/.go
-export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 # END: EXPORTS
 
 # Chez Scheme
@@ -265,6 +265,9 @@ alias jlg=JLinkGDBServer
 alias ghc="stack ghc"
 alias ghci="stack exec ghci"
 
+alias tv_on="xrandr --output HDMI-0 --mode 1920x1080 --fb 2560x1440 --panning '2560x1440*' --same-as DP-4"
+alias tv_off="xrandr --output HDMI-0 --off"
+
 function cdroot {
     if ! which git >/dev/null 2>&1; then
         echo "**** git must be installed to use cdroot"
@@ -346,4 +349,4 @@ export NIX_SHIM_ROOT="$HOME/.nix-shim"
 export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # OPAM configuration
-. /home/jon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
