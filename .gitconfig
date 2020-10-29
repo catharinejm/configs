@@ -1,6 +1,6 @@
 [user]
-  name = Jon Distad
-  email = jon.distad@gmail.com
+  name = Catharine Manning
+  email = catharine.j.manning@gmail.com
 [color]
 	branch = auto
 	diff = auto
@@ -34,3 +34,5 @@
 	default = upstream
 # [url "git@github.com:"]
 # 	insteadOf = https://github.com/
+[pull]
+	rebase = false

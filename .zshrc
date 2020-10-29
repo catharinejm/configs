@@ -257,7 +257,6 @@ alias grep='grep --color=auto'
 alias gitdiff="git log|grep commit|awk '{print \$2}'|tail -n 2|xargs -n 2 git diff $1 $2|$EDITOR"
 alias be="bundle exec"
 alias bi="bundle install"
-alias emacs="emacs -nw"
 
 alias jl="rlwrap -a JLinkExe"
 alias jlg=JLinkGDBServer
@@ -337,6 +336,9 @@ fi
 ### Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+### Yarn
+export PATH="$HOME/.yarn/bin:$PATH"
+
 # Blender
 # export PATH="$HOME/.local/opt/blender:$PATH"
 
@@ -345,8 +347,13 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # fi
 
 # nix-shim
-export NIX_SHIM_ROOT="$HOME/.nix-shim"
-export PATH="$NIX_SHIM_ROOT/bin:$PATH"
+# export NIX_SHIM_ROOT="$HOME/.nix-shim"
+# export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # OPAM configuration
 . "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
+
+# pyenv
+export PATH="/home/jon/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
