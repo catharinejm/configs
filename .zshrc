@@ -132,67 +132,8 @@ function sudo {
   fi
 }
 
-function proxy {
-  if [ ! -d $HOME/Code/Relevance ]; then
-    echo "The Relevance TrueCrypt volume must be mounted first!"
-  else
-    if [ "$1" = "ias" ]; then
-      export JUMPHOST_HOSTNAME=iasjump.icsl.net
-      export JUMPHOST_PORT=2222
-      echo "Connecting to iasjump.icsl.net:2222..."
-    else
-      export JUMPHOST_HOSTNAME=i2jump.icsl.net
-      export JUMPHOST_PORT=22
-      echo "Connecting to i2jump.icsl.net:22..."
-    fi
-    $HOME/Code/Relevance/vzb-jumphost-proxy/proxy.sh &> /dev/null &
-  fi
-}
-function vack {
-  mvim -p $(ack -l $@ | xargs) &> /dev/null &
-}
-
 function diffx {
   echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx --all
-}
-
-function reload! {
-  echo -n Restarting Rails server...
-  if touch tmp/restart.txt 2> /dev/null; then
-    echo
-  else
-    echo 'FAILED!'
-    echo Ensure you\'re at the root of a Rails project with a tmp/ directory.
-  fi
-}
-
-function push_configs {
-  pushd
-  cd ~/projects/configs
-  git add .
-  git ci -a
-  git push
-  popd
-}
-
-function clj {
-  local cp=$CLOJURE_CLASSPATH
-  local file
-  if [[ $ARGC -eq 1 ]]; then
-    file=$1
-  elif [[ $ARGC -gt 1 ]]; then
-    if [[ $1 == '-cp' ]]; then
-      cp+=:$2
-      file=$argv[3,-1]
-    else
-      file=$*
-    fi
-  fi
-  if [[ -n $file ]]; then
-    java -cp $cp $(echo $file | xargs)
-  else
-    java -cp $cp:$HOME/Java/lib/jline/jline.jar jline.ConsoleRunner clojure.main
-  fi
 }
 
 git_prompt_info() {
@@ -210,16 +151,6 @@ function git_user_initials {
     if [[ -z $inits ]]; then inits="-solo-"; fi
     echo -n "($inits)"
   fi
-}
-
-project_name() {
-  local name=$(pwd | awk -F/ '{print $NF}')
-  echo $name
-}
-
-project_name_color() {
-  local name=$(project_name)
-  echo "%{\e[0;35m%}${name}%{\e[0m%}"
 }
 
 set_prompt() {
@@ -351,9 +282,9 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # export PATH="$NIX_SHIM_ROOT/bin:$PATH"
 
 # OPAM configuration
-. "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
+# . "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
 
 # pyenv
-export PATH="/home/jon/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PATH="/home/jon/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
